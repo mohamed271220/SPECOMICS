@@ -7,9 +7,8 @@ const app = express();
 app.use(bodyParser.json());
 
 // routes import
-const authRoutes = require('./routes/auth')
-
-
+const authRoutes = require("./routes/auth");
+const newsRoutes = require("./routes/news");
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -22,8 +21,8 @@ app.use((req, res, next) => {
 });
 
 //TODO: ROUTES
-app.use('/auth',authRoutes)
-
+app.use("/auth", authRoutes);
+app.use("/news", newsRoutes);
 // ERROR FALLBACK
 app.use((error, req, res, next) => {
   console.log(error);

@@ -1,12 +1,13 @@
 const express = require("express");
 const { body } = require("express-validator");
+const newsController = require("../controllers/news");
 
 const router = express.Router();
 
-router.get('/',)
-router.get('/:id',)
+router.get("/", newsController.getNews);
+router.get("/:id",newsController.getNewsById);
 
-router.put('/:id',)
-router.delete('/:id',)
+router.put("/:id");
+router.delete("/:id");
 
 module.exports = router;
