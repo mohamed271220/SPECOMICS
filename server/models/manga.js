@@ -8,8 +8,10 @@ const mangaSchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,
     },
+    description: { type: String, required: true },
+    tags: [{ type: String }],
     chapters: [
       {
         type: Schema.Types.ObjectId,
@@ -17,7 +19,9 @@ const mangaSchema = new Schema(
       },
     ],
   },
-  
+  {
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model("Manga", mangaSchema);

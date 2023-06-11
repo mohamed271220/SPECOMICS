@@ -2,14 +2,50 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+// routes import
+const authRoutes = require("./routes/auth");
+const newsRoutes = require("./routes/news");
+// SETTING MULTER
+const path = require("path");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+
 const app = express();
 
 app.use(bodyParser.json());
 
-// routes import
-const authRoutes = require("./routes/auth");
-const newsRoutes = require("./routes/news");
+// MULTER TO HANDLE MULTIPART FORM DATA
+// CONFIGURE MULTER
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images");
+  },
+  filename: function (req, file, cb) {
+    cb(null, uuidv4());
+  },
+});
 
+//FILE FILTER
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+app.use(multer({ storage: storage, fileFilter: fileFilter }).single("image"));
+
+// SET STATIC FOLDER
+app.use('/images', express.static(path.join(__dirname, 'images')))
+
+
+
+// CORS CONFIGURATION
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -23,6 +59,7 @@ app.use((req, res, next) => {
 //TODO: ROUTES
 app.use("/auth", authRoutes);
 app.use("/news", newsRoutes);
+app.use('/manga', require('./routes/shop'))
 // ERROR FALLBACK
 app.use((error, req, res, next) => {
   console.log(error);

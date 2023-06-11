@@ -7,7 +7,8 @@ const router = express.Router();
 router.get("/", newsController.getNews);
 router.get("/:id",newsController.getNewsById);
 
-router.put("/:id");
-router.delete("/:id");
+// ADMIN ROUTES
+// router.put("/:id");
+// router.delete("/:id");
 
 module.exports = router;
