@@ -6,7 +6,13 @@ const Manga = require("../models/manga");
 const Chapter = require("../models/chapter");
 const User = require("../models/user");
 const fs = require("fs");
-const path = require("path");
+import * as res from "express/lib/response";
+import * as next from "next";
+
+
+//===============================MANGA CONTROLLERS==========================================
+
+// GET ALL MANGAS
 
 exports.getMangas = async (req, res, next) => {
   try {
@@ -34,6 +40,8 @@ exports.getMangas = async (req, res, next) => {
   }
 };
 
+// ADD A MANGA
+
 exports.addManga = async (req, res, next) => {
   const errors = validationResult(req);
   if (!req.file) {
@@ -41,10 +49,10 @@ exports.addManga = async (req, res, next) => {
     error.statusCode = 422;
     throw error;
   }
-///============================
+  ///============================
   // test elements
   // const pfp = req.body.pfp;
-//=============================
+  //=============================
   const pfp = req.file.path.replace("\\", "/");
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect");
@@ -82,19 +90,76 @@ exports.addManga = async (req, res, next) => {
   }
 };
 
+// GET A MANGA
+exports.getManga = async (req, res, next) => {
+  const mangaId = req.params.mangaId;
+  const currentPage = req.query.page || 1;
+  const perPage = 6;
+  try {
+    // const chapters = await Chapter.find({ mangaId: mangaId })
+    //   .sort({ chapterNumber: 1 })
+    //   .skip((currentPage - 1) * perPage)
+    //   .limit(perPage);
+    const manga = await Manga.findById(mangaId)
+      .populate("chapters")
+      .sort({ chapterNumber: 1 });
+    if (!manga) {
+      const error = new Error("Could not find post");
+      error.statusCode = 404;
+      throw error;
+      // throwing an error in then is like saying go to the next catch block
+    }
+
+    res.status(200).json({
+      message: "Fetched manga successfully!",
+      manga: manga,
+    });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+//TODO: update a manga
+exports.updateManga = async (req, res, next) => {};
+
+//TODO : delete a manga
+exports.deleteManga = async (req, res, next) => {};
+
+
+
+//=============================== FAVORITE PAGE CONTROLLERS  ==========================================
+
+//TODO: get favorite mangas
+exports.getFavorites = async (req, res, next) => {};
+
+// TODO: ADD A MANGA TO USER'S FAV ARRAY
+exports.addToFav = async (req, res, next) => {};
+
+// TODO: REMOVE A MANGA FROM USER'S FAV ARRAY
+exports.removeFromFav = async (req, res, next) => {};
+
+
+
+//===============================CHAPTERS CONTROLLERS ==========================================
+
 exports.addChapter = async (req, res, next) => {
   const mangaId = req.params.mangaId;
   const errors = validationResult(req);
-  if (!req.file) {
-    const error = new Error("NO PFP PROVIDED!!");
+  if (!req.files) {
+    const error = new Error("NO PANELS PROVIDED!!");
     error.statusCode = 422;
     throw error;
   }
-//====================
+  //====================
   // test elements
   // const pagesURls =req.body.pagesURls;
   //======================================
-  const pagesURls = req.file.path.replace("\\", "/");
+  const pagesURls = req.files.map((file) => {
+    file.path.replace("\\", "/");
+  });
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect");
     error.statusCode = 422;
@@ -125,29 +190,15 @@ exports.addChapter = async (req, res, next) => {
   }
 };
 
-exports.getManga = async (req, res, next) => {
-  const mangaId = req.params.mangaId;
+// TODO: get a chapter
+exports.getChapter = async (req, res, next) => {};
 
-  try {
-    const manga = await Manga.findById(mangaId).populate("chapters");
-    if (!manga) {
-      const error = new Error("Could not find post");
-      error.statusCode = 404;
-      throw error;
-      // throwing an error in then is like saying go to the next catch block
-    }
+//TODO: delete a chapter
+exports.deleteChapter = async (req, res, next) => {};
 
-    res.status(200).json({
-      message: "Fetched manga successfully!",
-      manga: manga,
-    });
-  } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
-  }
-};
+//TODO: update a chapter
+exports.updateChapter = async (req, res, next) => {};
+//==================================================================================================
 
 const clearImage = (filePath) => {
   filePath = path.join(__dirname, "..", filePath);

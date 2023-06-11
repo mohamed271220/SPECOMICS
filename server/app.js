@@ -41,9 +41,7 @@ const fileFilter = (req, file, cb) => {
 app.use(multer({ storage: storage, fileFilter: fileFilter }).single("image"));
 
 // SET STATIC FOLDER
-app.use('/images', express.static(path.join(__dirname, 'images')))
-
-
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // CORS CONFIGURATION
 app.use((req, res, next) => {
@@ -59,7 +57,8 @@ app.use((req, res, next) => {
 //TODO: ROUTES
 app.use("/auth", authRoutes);
 app.use("/news", newsRoutes);
-app.use('/manga', require('./routes/shop'))
+// THE MIDDLEWARE OF ROUTES WILL BE ADDED HERE AFTER THE ABOVE MIDDLEWARE
+app.use("/manga", require("./routes/shop"));
 // ERROR FALLBACK
 app.use((error, req, res, next) => {
   console.log(error);

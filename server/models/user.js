@@ -19,6 +19,12 @@ const userSchema = new Schema(
       type: String,
       default: "READER",
     },
+    fav: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Manga",
+      },
+    ],
     mangas: [
       {
         type: Schema.Types.ObjectId,
