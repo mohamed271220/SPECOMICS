@@ -1,0 +1,22 @@
+.NavLinks {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+  margin: auto;
+  font-weight: 700;
+}
+.NavLinks li {
+  color: white;
+  font-size: medium;
+}
+
+.NavLinks li a {
+  text-decoration: none;
+  display: flex;
+  justify-content: items-center;
+  gap: 2rem;
+  color: white;
+  font-weight: 400;
+  font-size: medium;
+}
+
