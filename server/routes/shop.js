@@ -37,7 +37,7 @@ const fileFilter = (req, file, cb) => {
 // app.use(multer({ storage: storage, fileFilter: fileFilter }).single("image"));
 
 // SET STATIC FOLDER
-app.use("/images", express.static(path.join(__dirname, "images")));
+// app.use("/images", express.static(path.join(__dirname, "images")));
 
 //===================================================================
 

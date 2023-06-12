@@ -6,8 +6,6 @@ const Manga = require("../models/manga");
 const Chapter = require("../models/chapter");
 const User = require("../models/user");
 const fs = require("fs");
-import * as res from "express/lib/response";
-import * as next from "next";
 
 
 //===============================MANGA CONTROLLERS==========================================

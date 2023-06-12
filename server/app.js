@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 
 // routes import
 const authRoutes = require("./routes/auth");
-const newsRoutes = require("./routes/news");
+const newsRoutes = require("../client/should_be_here/newsAPI");
+const discoverRoutes = require("../client/should_be_here/discoverPage");
 // SETTING MULTER
 const path = require("path");
 const multer = require("multer");
@@ -56,7 +57,8 @@ app.use((req, res, next) => {
 
 //TODO: ROUTES
 app.use("/auth", authRoutes);
-app.use("/news", newsRoutes);
+// app.use("/news", newsRoutes);
+// app.use("/discover", discoverRoutes);
 // THE MIDDLEWARE OF ROUTES WILL BE ADDED HERE AFTER THE ABOVE MIDDLEWARE
 app.use("/manga", require("./routes/shop"));
 // ERROR FALLBACK
