@@ -1,0 +1,13 @@
+MANGA SORTED BY popularity: https://api.jikan.moe/v4/manga?order_by=popularity
+
+GET A MANGA : https://api.jikan.moe/v4/manga/{id}
+where id is mal_id from the first link
+
+
+RECOMMENDATIONS
+https://api.jikan.moe/v4/recommendations/anime
+https://api.jikan.moe/v4/recommendations/manga
+
+
+top manga
+https://api.jikan.moe/v4/top/manga
