@@ -6,24 +6,22 @@ import "./NavLinks.css";
 const NavLinks = () => {
   return (
     <>
-
-        <ul className="NavLinks">
-          <li>
-            <NavLink className="" to="/" exact>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/">News</NavLink>
-          </li>
-          <li>
-            <NavLink to="/">Discover</NavLink>
-          </li>
-          <li>
-            <NavLink to="/">Read</NavLink>
-          </li>
-        </ul>
-    
+      <ul className="nav-links">
+        <li>
+          <NavLink className="" to="/" exact>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/news">News</NavLink>
+        </li>
+        <li>
+          <NavLink to="/discover">Discover</NavLink>
+        </li>
+        <li>
+          <NavLink to="/read">Read</NavLink>
+        </li>
+      </ul>
     </>
   );
 };

@@ -1,22 +1,62 @@
-.NavLinks {
+.nav-links {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
   gap: 4rem;
   margin: auto;
   font-weight: 700;
+  
 }
-.NavLinks li {
+.nav-links li {
   color: white;
   font-size: medium;
 }
 
-.NavLinks li a {
+.nav-links li a {
   text-decoration: none;
-  display: flex;
-  justify-content: items-center;
+  /* display: flex; */
+  /* justify-content:center; */
   gap: 2rem;
   color: white;
   font-weight: 400;
   font-size: medium;
 }
 
+.nav-links a:hover,
+.nav-links a:active,
+.nav-links a.active {
+  /* background: #f8df00; */
+  /* border-color: #292929; */
+  color: #ff0000;
+}
+
+
+
+@media (min-width: 768px) {
+  .nav-links {
+    flex-direction: row;
+  }
+
+  .nav-links li {
+    margin: 0 0.5rem;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .nav-links button {
+    border: 1px solid white;
+    color: white;
+    background: transparent;
+  }
+  
+  .nav-links button:hover,
+  .nav-links button:active {
+  
+    color: #ff0000;
+  }
+}
