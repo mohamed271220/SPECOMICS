@@ -1,5 +1,5 @@
 import React from "react";
-import Carousel from "../../shared/components/UI/Carousel/Carousel";
+import Carousel from "../../../shared/components/UI/Carousel/Carousel";
 
 const HomePage = () => {
   const DUMMY_DATA = {
