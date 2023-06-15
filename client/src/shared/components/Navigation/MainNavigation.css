@@ -8,7 +8,6 @@
   justify-content: space-between;
   margin-right: 2rem;
   cursor: pointer;
-  
 }
 
 .main-navigation__menu-btn span {
@@ -19,7 +18,12 @@
 }
 
 .main-navigation__title {
-  margin: 2rem auto;
+  position: absolute;
+  top: auto;
+  right:10%;
+  margin: 1rem auto;
+  font-size: 4rem;
+  
 }
 
 .main-navigation__title a {
@@ -31,14 +35,41 @@
 }
 
 .main-navigation__drawer-nav {
+  margin-top: 2rem;
   height: 100%;
+}
+.auth-container {
+  border: 1px solid white;
+  padding: 5px;
+}
+.auth-control {
+  color: white;
+  font-weight: 400;
+  font-size: medium;
+  cursor: pointer;
+}
+
+.auth-container:hover {
+  font-weight: 420;
+  cursor: pointer;
+  border-color: rgb(255, 0, 0);
+  .auth-control {
+    color: rgb(255, 0, 0);
+  }
 }
 
 @media (min-width: 768px) {
   .main-navigation__menu-btn {
     display: none;
   }
-
+  .main-navigation__title {
+    position: absolute;
+    top: auto;
+    right: 50%;
+    left: 50%;
+    margin: 1rem auto;
+    
+  }
   .main-navigation__header-nav {
     display: flex;
   }

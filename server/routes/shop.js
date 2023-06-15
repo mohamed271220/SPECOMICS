@@ -71,5 +71,6 @@ router.put("/:chapterId/edit", isAuth, shopControllers.updateChapter);
 // delete a chapter
 router.delete("/:chapterId/delete", isAuth, shopControllers.deleteChapter);
 
-
 module.exports = router;
+
+

@@ -1,14 +1,17 @@
 .logo {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
+  
   font-size: 2.1rem;
   color: rgb(255, 0, 0);
   text-align: center;
   font-weight: 700;
-  
 }
 .white {
   color: white;
 }
 .gray {
-    color: rgb(90, 92, 92);
+  color: rgb(90, 92, 92);
+}
+.bold {
+  font-weight: 800;
 }

@@ -6,7 +6,7 @@
   align-items: center;
   gap: 4rem;
   margin: auto;
-  font-weight: 700;
+  font-weight: 800;
   
 }
 .nav-links li {
@@ -20,7 +20,7 @@
   /* justify-content:center; */
   gap: 2rem;
   color: white;
-  font-weight: 400;
+  font-weight: 800;
   font-size: medium;
 }
 

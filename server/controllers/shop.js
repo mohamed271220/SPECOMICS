@@ -7,7 +7,6 @@ const Chapter = require("../models/chapter");
 const User = require("../models/user");
 const fs = require("fs");
 
-
 //===============================MANGA CONTROLLERS==========================================
 
 // GET ALL MANGAS
@@ -126,8 +125,6 @@ exports.updateManga = async (req, res, next) => {};
 //TODO : delete a manga
 exports.deleteManga = async (req, res, next) => {};
 
-
-
 //=============================== FAVORITE PAGE CONTROLLERS  ==========================================
 
 //TODO: get favorite mangas
@@ -138,8 +135,6 @@ exports.addToFav = async (req, res, next) => {};
 
 // TODO: REMOVE A MANGA FROM USER'S FAV ARRAY
 exports.removeFromFav = async (req, res, next) => {};
-
-
 
 //===============================CHAPTERS CONTROLLERS ==========================================
 
@@ -203,3 +198,42 @@ const clearImage = (filePath) => {
   console.log(filePath);
   fs.unlink(filePath, (err) => console.log(err));
 };
+
+//==================
+/*
+
+const imageDownloader = require('image-downloader')
+const multer = require('multer')
+
+app.post('/logout', (req, res) => {
+    res.cookie('token', '').json(true);
+});
+app.post('/upload-by-link', async (req, res) => {
+    const { link } = req.body;
+    const newName = 'photo' + Date.now() + '.jpg'
+    //lib image downloader
+    await imageDownloader.image({
+        url: link,
+        dest: __dirname + '/uploads/' + newName,
+    });
+    res.json('/uploads/' + newName)
+});
+
+
+const phostoMiddleware = multer({ dest: 'uploads/' })
+
+app.post('/upload', phostoMiddleware.array('photos', 25), (req, res) => {
+    console.log(req.files);
+    const uploadedFiles = [];
+    for (let i = 0; i < req.files.length; i++) {
+        const { path, originalname } = req.files[i];
+        const parts = originalname.split('.')
+        const ext = parts[parts.length - 1];
+        const newPath = path + '.' + ext;
+        fs.renameSync(path, newPath)
+        uploadedFiles.push(newPath.replace('uploads/', ''))
+    }
+    res.json(uploadedFiles)
+});
+
+*/
