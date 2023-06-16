@@ -1,0 +1,69 @@
+/* 
+.small-menu-container {
+    .small-menu__item img {
+        width: 15rem;
+      }
+      .small-menu__item img {
+        width: 10rem;
+        "all ease 0.2s - 0.5s
+      } */
+.hover-card {
+  /* width: ; */
+  position: relative;
+}
+.hover-card img {
+  width: 15rem;
+  transition: all ease  0.5s;
+}
+.hover-card-info {
+    height:70px;
+width: 15rem;
+  padding: 10px;
+  box-sizing: border-box;
+  position: absolute;
+  background: rgb(27, 27, 27, 0.5);
+  color: white;
+  bottom: 5px;
+  transition: all ease  0.5s;
+}
+.hover-card-info h3 {
+  margin: 10px;
+  font-size: 20px;
+}
+.hover-card-info p {
+  font-size: 20px;
+  margin: 20px;
+  visibility: hidden;
+  opacity: 0;
+}
+.hover-card:hover {
+  cursor: pointer;
+}
+.hover-card:hover .hover-card-info {
+  bottom: 30px;
+  height: 220px;
+  background: rgb(27, 27, 27, 0.8);
+}
+.hover-card:hover p {
+  opacity: 1;
+  visibility: visible;
+}
+.hover-card:hover img {
+  transform: scale(1.1) rotate(-3deg);
+}
+
+@media (max-width: 1300px) {
+
+    .hover-card img {
+      width: 10rem;
+    }
+    .hover-card-info {
+        width: 10rem;
+    }
+    .hover-card:hover .hover-card-info {
+        bottom: 30px;
+        height: 190px;
+        background: rgb(27, 27, 27, 0.8);
+      }
+  }
+  

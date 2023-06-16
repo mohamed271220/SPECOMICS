@@ -11,7 +11,7 @@ const AuthModal = (props) => {
  
   const changeFormHandler = (ev) => {
     ev.preventDefault();
-   
+
     setIsLoginForm(!isLoginForm);
   };
   return (

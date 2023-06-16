@@ -1,6 +1,6 @@
 .logo {
   font-family: "Inter", sans-serif;
-  
+
   font-size: 2.1rem;
   color: rgb(255, 0, 0);
   text-align: center;
@@ -14,4 +14,9 @@
 }
 .bold {
   font-weight: 800;
+}
+@media (max-width: 420px) {
+  .logo {
+    font-size: 1.7rem;
+  }
 }

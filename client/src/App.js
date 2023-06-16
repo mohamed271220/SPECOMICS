@@ -7,6 +7,7 @@ const router = createBrowserRouter([
     path: "/",
     // error element with main navigation
     errorElement: <h1>Page not found</h1>,
+    //we might need a footer
     element: <MainNavigation />,
     id: "root",
     children: [
@@ -30,21 +31,23 @@ const router = createBrowserRouter([
       },
       {
         path: "discover",
+        // there is a shared element here don't forget to add it
+        // element: <discoverLayout/>
         children: [
           {
             index: true,
             element: <h1>Discover</h1>,
           },
           {
-            path: "top",
+            path: "Top",
             element: <h1>Top</h1>,
           },
           {
-            path: "popular",
+            path: "Popular",
             element: <h1>Popular</h1>,
           },
           {
-            path: "recommendations",
+            path: "Recommended",
             element: <h1>Recommendations</h1>,
           },
           {

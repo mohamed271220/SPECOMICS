@@ -1,0 +1,29 @@
+.small-menu {
+  display: flex;
+  flex-direction: column;
+}
+.small-menu h1 {
+  margin-left: 3rem;
+  margin-bottom: 3rem;
+  width: 100%;
+  display: flex;
+}
+.small-menu-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  justify-content: center;
+}
+.small-menu__item img {
+    width: 15rem;
+  }
+
+@media (max-width: 1300px) {
+  .small-menu-container {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .small-menu__item img {
+    width: 10rem;
+  }
+}

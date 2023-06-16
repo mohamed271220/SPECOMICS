@@ -56,6 +56,11 @@
   .button--small {
     font-size: 0.8rem;
   }
+  .button--lean {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 2rem auto;
+  }
   
   .button--big {
     font-size: 1.5rem;
