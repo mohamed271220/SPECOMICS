@@ -2,6 +2,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import HomePage from "./Manga/pages/Home/HomePage";
 
+
+
 const router = createBrowserRouter([
   {
     path: "/",

@@ -8,11 +8,10 @@ import { Link } from "react-router-dom";
 const AuthModal = (props) => {
   const [isLoginForm, setIsLoginForm] = React.useState(true);
 
- 
   const changeFormHandler = (ev) => {
     ev.preventDefault();
 
-    setIsLoginForm(!isLoginForm);
+    setIsLoginForm((prevMode) => !prevMode);
   };
   return (
     <>
