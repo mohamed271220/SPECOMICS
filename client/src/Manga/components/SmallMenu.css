@@ -13,11 +13,23 @@
   flex-direction: row;
   gap: 3rem;
   justify-content: center;
+  text-decoration: none;
 }
 .small-menu__item img {
-    width: 15rem;
-  }
+  height: 18rem;
+  width: 15rem;
+}
 
+.small-menu-container a {
+  text-decoration: none;
+  color: inherit;
+}
+.small-menu-container a p{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
 @media (max-width: 1300px) {
   .small-menu-container {
     flex-wrap: wrap;

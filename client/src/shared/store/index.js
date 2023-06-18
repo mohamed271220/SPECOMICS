@@ -4,14 +4,14 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 // ===============================SLICES================================================
 
-import { newsApi } from "./newsSlice";
+import { jikanApi } from "./jikanSlice";
 // ==============================STORE SHOULD BE CALLED ONE TIME ONLY===================================
 export const store = configureStore({
   reducer: {
-    [newsApi.reducerPath]: newsApi.reducer,
+    [jikanApi.reducerPath]: jikanApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(newsApi.middleware),
+    getDefaultMiddleware().concat(jikanApi.middleware),
 });
 
 // setupListeners(store.dispatch);

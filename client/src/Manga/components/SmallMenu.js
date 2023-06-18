@@ -9,7 +9,7 @@ const SmallMenu = (props) => {
     <Card className="small-menu">
       <h1>{props.CategoryTitle}</h1>
       <div className="small-menu-container">
-        {props.mangaData.map((manga) => {
+        {props.mangaData.filter((manga) => manga.rank <=4).map((manga) => {
           return (
             <SingleManga
               isHome={props.isHome}

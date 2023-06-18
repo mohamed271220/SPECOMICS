@@ -1,5 +1,4 @@
-
-import  {useGetNewsQuery}  from "../../shared/store/newsSlice";
+import { useGetNewsQuery } from "../../shared/store/jikanSlice";
 import NewsCard from "../components/News-card";
 import "./News.css";
 
@@ -46,8 +45,8 @@ const DUMMY_NEWS = [
 
 const News = () => {
   // using redux
-  const { data, error, isLoading } = useGetNewsQuery('13');
-console.log(data);
+  const { data, error, isLoading } = useGetNewsQuery("13");
+  console.log(data);
   return (
     <div className="news-container">
       <div className="news">
