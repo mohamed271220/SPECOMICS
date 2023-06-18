@@ -3,6 +3,8 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import HomePage from "./Manga/pages/Home/HomePage";
 import News from "./News/pages/News";
 
+import SingleNews from "./News/pages/SingleNews";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,7 +28,7 @@ const router = createBrowserRouter([
           {
             // /news/newsId
             path: ":newsId",
-            element: <h1>News Details</h1>,
+            element: <SingleNews />,
           },
         ],
       },

@@ -25,6 +25,11 @@
   transition: all 0.5s ease-in-out;
 }
 
+.news-hr {
+  width: 80%;
+  color: yellow
+}
+
 .news:hover img,
 .news:hover p {
   filter: grayscale(30%);
