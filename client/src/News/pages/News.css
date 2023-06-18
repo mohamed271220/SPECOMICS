@@ -1,0 +1,35 @@
+.news {
+  display: flex;
+  position: relative;
+  text-align: center;
+}
+
+.news img {
+  width: 100%;
+  height: 65vh;
+  box-shadow: 1px 0px 1px black;
+  filter: grayscale(100%);
+  transition: all 0.5s ease-in-out;
+}
+.news p {
+  z-index: 10;
+  font-size: 40px;
+  color: rgb(222, 42, 42);
+  font-weight: 900;
+  text-shadow: 2px 2px black;
+  position: absolute;
+  margin: 0%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease-in-out;
+}
+
+.news:hover img,
+.news:hover p {
+  filter: grayscale(30%);
+  font-size: 50px;
+  text-shadow: 2px 2px rgb(147, 0, 0);
+
+  color: azure;
+}

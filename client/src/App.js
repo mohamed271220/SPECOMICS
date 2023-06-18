@@ -1,8 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import HomePage from "./Manga/pages/Home/HomePage";
-
-
+import News from "./News/pages/News";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +21,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <h1>News</h1>,
+            element: <News />,
           },
           {
             // /news/newsId
