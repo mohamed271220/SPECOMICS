@@ -34,7 +34,7 @@ const SingleManga = (props) => {
       />
       <div className="hover-card-info">
         <h3>{props.manga.title}</h3>
-        <p>{props.manga.authors[0].name}</p>
+        <p>{ props.manga.authors &&props.manga.authors[0].name}</p>
       </div>
     </Link>
   );

@@ -1,8 +1,11 @@
+
 .footer {
   background-color: rgb(28, 28, 28);
   height: 30rem;
   display: flex;
+  bottom: 0;
 }
+
 
 .footer__socials {
   margin: 4rem 2rem;

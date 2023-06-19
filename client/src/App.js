@@ -3,9 +3,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./Manga/pages/Home/HomePage";
 import News from "./News/pages/News";
 
+import Popular from "./Manga/pages/Categories/Popular";
 import SingleNews from "./News/pages/SingleNews";
-import Category from "./Manga/pages/Category/Category";
+import TopCategory from "./Manga/pages/Categories/TopCategory";
 import MainLayout from "./shared/components/MainLayout";
+import MangaDetails from "./Manga/pages/MangaDetails";
 
 const router = createBrowserRouter([
   {
@@ -45,11 +47,11 @@ const router = createBrowserRouter([
           },
           {
             path: "Top",
-            element: <Category />,
+            element: <TopCategory />,
           },
           {
             path: "Popular",
-            element: <h1>Popular</h1>,
+            element: <Popular />,
           },
           {
             path: "Recommended",
@@ -63,7 +65,7 @@ const router = createBrowserRouter([
       },
       {
         path: "manga/:mangaId",
-        element: <h1>Manga Details</h1>,
+        element: <MangaDetails/>,
       },
       {
         path: "read",

@@ -1,33 +1,11 @@
+import SkeletonPost from "../../shared/Loading/Skeleton/SkeletonPost";
 import { useGetNewsQuery } from "../../shared/store/jikanSlice";
 import NewsCard from "../components/News-card";
 import "./News.css";
 
-// FROM  https://api.jikan.moe/v4/manga/13/news
-
-//   {
-//     mal_id: 68944601,
-//     url: "https://myanimelist.net/news/68944601",
-//     title: "North American Anime & Manga Releases for April",
-//     date: "2023-04-03T12:28:00+00:00",
-//     author_username: "Aiimee",
-//     author_url: "https://myanimelist.net/profile/Aiimee",
-//     forum_url: "https://myanimelist.net/forum/?topicid=2085951",
-//     images: {
-//       jpg: {
-//         image_url:
-//           "https://cdn.myanimelist.net/s/common/uploaded_files/1680548192-1bab9dda6c4361bca1dabf3a36eefb60.jpeg?s=e070ba24ac1c31bae536e9397e941bc3",
-//       },
-//     },
-//     comments: 3,
-//     excerpt:
-//       "Here are the North American anime, manga, and light novel releases for April. Week 1: April 4 - 10 Anime Releases Cowboy Bebop Complete Series Blu-ray Cowboy Bebop C...",
-//   },
-// ];
-
 const News = () => {
-  // using redux
   const { data, error, isLoading } = useGetNewsQuery("13");
-  console.log(data);
+
   return (
     <div className="news-container">
       <div className="news">
@@ -41,9 +19,9 @@ const News = () => {
       <hr className="news-hr" />
       <div>Pagination control</div>
       <div className="news-cards">
-        {!isLoading &&  data.data.map((news) => (
-          <NewsCard  key={news.mal_id} news={news} />
-        ))}
+        {isLoading && <SkeletonPost />}
+        {!isLoading &&
+          data.data.map((news) => <NewsCard key={news.mal_id} news={news} />)}
       </div>
     </div>
   );

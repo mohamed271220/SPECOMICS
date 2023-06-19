@@ -14,9 +14,22 @@ export const jikanApi = createApi({
     getTop: builder.query({
       query: () => `top/manga`,
     }),
-    getRecommendations: builder.query({}),
-    getPopular: builder.query({}),
+    getRecommendations: builder.query({
+      query: () => `recommendations/manga`,
+    }),
+    getPopular: builder.query({
+      query: () => `manga?order_by=popularity`,
+    }),
+    getSingleManga: builder.query({
+      query: (id) => `manga/${id}`,
+    }),
   }),
 });
 
-export const { useGetNewsQuery, useGetTopQuery } = jikanApi;
+export const {
+  useGetNewsQuery,
+  useGetTopQuery,
+  useGetPopularQuery,
+  useGetRecommendationsQuery,
+  useGetSingleMangaQuery
+} = jikanApi;

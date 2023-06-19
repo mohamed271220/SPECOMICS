@@ -1,4 +1,17 @@
-MANGA SORTED BY popularity: https://api.jikan.moe/v4/manga?order_by=popularity
+MANGA SORTED BY popularity:  if (props.CategoryTitle === "Top") {
+    content = props.mangaData
+      .filter((manga) => manga.rank <= 4)
+      .map((manga) => {
+        return (
+          <SingleManga
+            isHome={props.isHome}
+            className={props.isHome ? "small-menu__item" : ""}
+            key={manga.id}
+            manga={manga}
+          />
+        );
+      });
+  }
 
 GET A MANGA : https://api.jikan.moe/v4/manga/{id}
 where id is mal_id from the first link
