@@ -49,9 +49,7 @@ const MainNavigation = () => {
         <NavLinks />
       </MainHeader>
 
-      <main>
-        <Outlet />
-      </main>
+    
     </>
   );
 };

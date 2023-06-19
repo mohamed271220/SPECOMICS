@@ -1,0 +1,33 @@
+.footer {
+  background-color: rgb(28, 28, 28);
+  height: 30rem;
+  display: flex;
+}
+
+.footer__socials {
+  margin: 4rem 2rem;
+  padding-right: 2rem;
+  border-right: 1px solid gray;
+}
+.footer__socials h2 {
+  color: white;
+}
+
+.footer__socials-icons {
+  width: 10rem;
+  flex-wrap: wrap;
+}
+
+.footer__socials-icons a {
+  color: rgb(255, 255, 255);
+}
+
+.footer__jikan {
+  margin: 4rem 2rem;
+  color: white;
+}
+
+.footer__jikan-icon {
+  width: 46px;
+  height: 46px;
+}

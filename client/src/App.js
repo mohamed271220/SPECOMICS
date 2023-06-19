@@ -1,10 +1,11 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import MainNavigation from "./shared/components/Navigation/MainNavigation";
+
 import HomePage from "./Manga/pages/Home/HomePage";
 import News from "./News/pages/News";
 
 import SingleNews from "./News/pages/SingleNews";
 import Category from "./Manga/pages/Category/Category";
+import MainLayout from "./shared/components/MainLayout";
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
     // error element with main navigation
     errorElement: <h1>Page not found</h1>,
     //we might need a footer
-    element: <MainNavigation />,
+    element: <MainLayout />,
     id: "root",
     children: [
       {
