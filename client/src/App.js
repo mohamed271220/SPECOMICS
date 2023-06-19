@@ -4,6 +4,7 @@ import HomePage from "./Manga/pages/Home/HomePage";
 import News from "./News/pages/News";
 
 import SingleNews from "./News/pages/SingleNews";
+import Category from "./Manga/pages/Category/Category";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
           },
           {
             path: "Top",
-            element: <h1>Top</h1>,
+            element: <Category />,
           },
           {
             path: "Popular",

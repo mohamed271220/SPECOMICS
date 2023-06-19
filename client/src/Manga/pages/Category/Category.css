@@ -1,0 +1,8 @@
+.category-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  justify-content: center;
+  text-decoration: none;
+  flex-wrap: wrap;
+}

@@ -1,30 +1,21 @@
-/* 
-.small-menu-container {
-    .small-menu__item img {
-        width: 15rem;
-      }
-      .small-menu__item img {
-        width: 10rem;
-        "all ease 0.2s - 0.5s
-      } */
 .hover-card {
-  /* width: ; */
   position: relative;
 }
 .hover-card img {
   width: 15rem;
-  transition: all ease  0.5s;
+  height: 21rem;
+  transition: all ease 0.5s;
 }
 .hover-card-info {
-    height:70px;
-width: 15rem;
+  height: 80px;
+  width: 15rem;
   padding: 10px;
   box-sizing: border-box;
   position: absolute;
   background: rgb(27, 27, 27, 0.5);
   color: white;
   bottom: 5px;
-  transition: all ease  0.5s;
+  transition: all ease 0.5s;
 }
 .hover-card-info h3 {
   margin: 10px;
@@ -53,17 +44,15 @@ width: 15rem;
 }
 
 @media (max-width: 1300px) {
-
-    .hover-card img {
-      width: 10rem;
-    }
-    .hover-card-info {
-        width: 10rem;
-    }
-    .hover-card:hover .hover-card-info {
-        bottom: 30px;
-        height: 190px;
-        background: rgb(27, 27, 27, 0.8);
-      }
+  .hover-card img {
+    width: 12rem;
   }
-  
+  .hover-card-info {
+    width: 12rem;
+  }
+  .hover-card:hover .hover-card-info {
+    bottom: 30px;
+    height: 190px;
+    background: rgb(27, 27, 27, 0.8);
+  }
+}

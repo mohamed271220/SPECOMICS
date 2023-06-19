@@ -27,7 +27,7 @@
 
 .news-hr {
   width: 80%;
-  color: yellow
+  color: yellow;
 }
 
 .news:hover img,
@@ -37,4 +37,34 @@
   text-shadow: 2px 2px rgb(147, 0, 0);
 
   color: azure;
+}
+
+.news-cards {
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.news-card {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 1rem 3rem;
+  text-decoration: none;
+  color: black;
+  border: 2px solid gray;
+  padding: 1rem;
+}
+
+.news-card img {
+  width: 20rem;
+  overflow: hidden;
+  margin: 0 2rem 0 0;
+}
+.news-card__info {
+  text-decoration: none;
+}
+@media (max-width: 720px) {
+  .news-card__info p {
+    display: none;
+  }
 }
