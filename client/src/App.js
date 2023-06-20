@@ -1,13 +1,13 @@
+import { useCallback, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
 import HomePage from "./Manga/pages/Home/HomePage";
 import News from "./News/pages/News";
-
 import Popular from "./Manga/pages/Categories/Popular";
 import SingleNews from "./News/pages/SingleNews";
 import TopCategory from "./Manga/pages/Categories/TopCategory";
 import MainLayout from "./shared/components/MainLayout";
 import MangaDetails from "./Manga/pages/MangaDetails";
+import { AuthContext } from "./shared/context/auth-context";
 
 import Recomended from "./Manga/pages/Categories/Recomended";
 
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
           },
           {
             path: "Recommended",
-            element: <Recomended/>,
+            element: <Recomended />,
           },
           {
             path: "tags/:tagName",
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
       },
       {
         path: "manga/:mangaId",
-        element: <MangaDetails/>,
+        element: <MangaDetails />,
       },
       {
         path: "read",
@@ -96,7 +96,19 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+  }, []);
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+      <RouterProvider router={router} />
+    </AuthContext.Provider>
+  );
 }
 
 export default App;

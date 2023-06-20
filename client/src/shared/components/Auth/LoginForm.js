@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Input from "../FormElements/Input/Input";
 
@@ -9,8 +9,15 @@ import {
 } from "../../util/validators";
 import Button from "../FormElements/Button/Button";
 import { useForm } from "../../hooks/form-hook";
+import { AuthContext } from "../../context/auth-context";
+import ErrorModal from "../Error/ErrorModal";
+import LoadingSpinner from "../../Loading/LoadingSpinner/LoadingSpinner";
 
 const LoginForm = () => {
+  const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isError, setIsError] = React.useState(undefined);
+
   const [formState, inputHandler] = useForm(
     {
       email: {
@@ -25,14 +32,41 @@ const LoginForm = () => {
     false
   );
 
-  const loginSubmitHandler = (event) => {
+  const loginSubmitHandler = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formState.inputs.email.value,
+          password: formState.inputs.password.value,
+        }),
+      });
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+      setIsLoading(false);
+
+      auth.login(responseData.token, responseData.userId);
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
+      setIsError(err.message || "Something went wrong!");
+    }
+
     console.log(formState.inputs.email.value);
     console.log(formState.inputs.password.value);
   };
 
   return (
     <>
+      <ErrorModal error={isError} onClear={() => setIsError(null)} />
+      {isLoading && <LoadingSpinner asOverlay />}
       <form className="form" onSubmit={loginSubmitHandler}>
         <Input
           id="email"
@@ -60,6 +94,7 @@ const LoginForm = () => {
           className="button"
           danger
           disabled={!formState.isValid}
+          onClick={loginSubmitHandler}
         >
           Login
         </Button>

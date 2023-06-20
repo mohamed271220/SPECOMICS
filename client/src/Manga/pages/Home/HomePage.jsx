@@ -8,6 +8,7 @@ import {
   useGetRecommendationsQuery,
 } from "../../../shared/store/jikanSlice";
 import SkeletonPost from "../../../shared/Loading/Skeleton/SkeletonPost";
+import LoadingSpinner from '../../../shared/Loading/LoadingSpinner/LoadingSpinner'
 const HomePage = () => {
   const {
     data: topData,
@@ -33,7 +34,7 @@ const HomePage = () => {
   return (
     <div className="Hero">
       {newsLoading ? (
-        <SkeletonPost />
+        <LoadingSpinner />
       ) : (
         <NewsCarousel key={newsData.data.mal_id} data={newsData.data.slice(0, 3)} />
       )}

@@ -7,7 +7,7 @@ const chapterSchema = new Schema(
     title: { type: String, required: true },
     chapterNumber: { type: Number, required: true },
     pagesURls: [{ type: String, required: true }],
-    mangaId: { type: Schema.Types.ObjectId, ref: "Manga", required: true },
+    mangaId: { type: mongoose.Types.ObjectId, ref: "Manga", required: true },
   },
   {
     timestamps: true,

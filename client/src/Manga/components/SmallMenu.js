@@ -41,7 +41,7 @@ const SmallMenu = (props) => {
         const entry = manga.entry.map((manga) => manga);
         return <SingleManga key={entry[0].mal_id} manga={entry[0]} />;
       })
-      .slice(0, 4);
+      .sort(() => 0.5 - Math.random()).slice(0, 4)
   } 
 
   return (

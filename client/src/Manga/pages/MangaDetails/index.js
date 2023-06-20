@@ -45,7 +45,10 @@ const MangaDetails = () => {
             <div className="tags">
               {data.data.genres.map((genre) => (
                 <Link to={`/genres/${genre.name}`} className="tag__background">
+                  <p>
                   {genre.name}
+
+                  </p>
                 </Link>
               ))}
             </div>
@@ -77,7 +80,7 @@ const MangaDetails = () => {
                       <SingleManga key={manga.entry.mal_id} manga={entry[0]} />
                     );
                   })
-                  .slice(0, 5)
+                  .sort(() => 0.5 - Math.random()).slice(0, 4)
               )}
             </div>
           </div>

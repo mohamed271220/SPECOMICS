@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const mangaSchema = new Schema(
   {
     title: { type: String, required: true },
-    pfp: { type: String, required: true },
+    image: { type: String, required: true },
     author: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: "User",
       required: false,
     },
@@ -14,7 +14,7 @@ const mangaSchema = new Schema(
     tags: [{ type: String }],
     chapters: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "Chapter",
       },
     ],
