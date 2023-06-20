@@ -15,7 +15,7 @@ const SmallMenu = (props) => {
           <SingleManga
             isHome={props.isHome}
             className={props.isHome ? "small-menu__item" : ""}
-            key={manga.id}
+            key={manga.mal_id}
             manga={manga}
           />
         );
@@ -29,7 +29,7 @@ const SmallMenu = (props) => {
           <SingleManga
             isHome={props.isHome}
             className={props.isHome ? "small-menu__item" : ""}
-            key={manga.id}
+            key={manga.mal_id}
             manga={manga}
           />
         );
@@ -39,7 +39,7 @@ const SmallMenu = (props) => {
     content = props.mangaData
       .map((manga) => {
         const entry = manga.entry.map((manga) => manga);
-        return <SingleManga key={manga.entry.mal_id} manga={entry[0]} />;
+        return <SingleManga key={entry[0].mal_id} manga={entry[0]} />;
       })
       .slice(0, 4);
   } 

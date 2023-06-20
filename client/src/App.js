@@ -9,6 +9,8 @@ import TopCategory from "./Manga/pages/Categories/TopCategory";
 import MainLayout from "./shared/components/MainLayout";
 import MangaDetails from "./Manga/pages/MangaDetails";
 
+import Recomended from "./Manga/pages/Categories/Recomended";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,7 +57,7 @@ const router = createBrowserRouter([
           },
           {
             path: "Recommended",
-            element: <h1>Recommendations</h1>,
+            element: <Recomended/>,
           },
           {
             path: "tags/:tagName",

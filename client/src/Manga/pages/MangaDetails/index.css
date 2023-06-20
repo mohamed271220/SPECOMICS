@@ -1,0 +1,51 @@
+.manga-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.manga-details__upper {
+  display: flex;
+  flex-direction: column;
+}
+.manga-details__upper img {
+  padding: 0;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  object-fit: cover;
+  height: 35rem;
+  box-shadow: 1px 1px 7px rgb(89, 33, 33);
+}
+
+.tags {
+    display: flex;
+    margin: 1rem;
+    flex-wrap: wrap;
+
+}
+.tag__background{
+    text-decoration: none;
+    color: rgb(65, 65, 65);
+    font-weight: 600;
+    margin:  0.7rem;
+    text-align: center;
+    justify-content: center;
+    width: 6rem;
+    border-radius: 12px;
+    background-color: rgb(182, 182, 182);
+    transition: all 0.3s ease-in-out;
+
+}
+.tag__background:hover{
+    transform: scale(1.2);
+    color: aliceblue;
+    background-color: rgb(65, 65, 65);
+}
+.recommendations{
+    margin: 2rem;
+border:  1px solid rgb(215, 215, 215); 
+padding: 2rem;   
+}

@@ -35,20 +35,31 @@ const HomePage = () => {
       {newsLoading ? (
         <SkeletonPost />
       ) : (
-        <NewsCarousel data={newsData.data.slice(0, 3)} />
+        <NewsCarousel key={newsData.data.mal_id} data={newsData.data.slice(0, 3)} />
       )}
+
+      {/* //================================================= */}
       {topLoading ? (
         <SkeletonPost />
+      ) : topError || topData.data === undefined ? (
+        <div>Error</div>
       ) : (
         <SmallMenu CategoryTitle="Top" mangaData={topData.data} />
       )}
+      {/* //================================================= */}
       {popularLoading ? (
         <SkeletonPost />
+      ) : popularError || popularData.data === undefined ? (
+        <div>Error</div>
       ) : (
         <SmallMenu CategoryTitle="Popular" mangaData={popularData.data} />
       )}
+
+      {/* //================================================= */}
       {recommendationsLoading ? (
         <SkeletonPost />
+      ) : recommendationsError || recommendationsData.data === undefined ? (
+        <div>Error</div>
       ) : (
         <SmallMenu
           CategoryTitle="Recommended"
