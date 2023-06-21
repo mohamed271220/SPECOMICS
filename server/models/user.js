@@ -21,10 +21,15 @@ const userSchema = new Schema(
       type: String,
       default: "READER",
     },
-    fav: [
+    favReads: [
       {
         type: mongoose.Types.ObjectId,
         ref: "Manga",
+      },
+    ],
+    favManga: [
+      {
+        type: mongoose.Types.ObjectId,
       },
     ],
     mangas: [

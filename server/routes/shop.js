@@ -44,15 +44,21 @@ const fileFilter = (req, file, cb) => {
 const router = express.Router();
 
 router.get("/", shopControllers.getMangas);
+
 router.post("/newMange", isAuth, shopControllers.addManga);
 
 router.get("/:mangaId", shopControllers.getManga);
 //edit a manga
 router.put("/:mangaId/edit", isAuth, shopControllers.updateManga);
+
 // TODO: favorites routes
-router.get("/:userId/favorites", isAuth, shopControllers.getFavorites);
+router.get("/:userId/favorites", isAuth, shopControllers.getFavoritesByUserId);
 // add too favorites
-router.post("/:mangaId/fav", isAuth, shopControllers.addToFav);
+router.post("/:userId/fav", isAuth, shopControllers.addToFavReads);
+
+router.post("/:userId/fav/jikanId", isAuth, shopControllers.addToFavManga);
+
+router.delete("/:userId/fav",isAuth , shopControllers.removeFromFav);
 
 //TODO:chapter routes
 // get a single chapter
@@ -72,5 +78,3 @@ router.put("/:chapterId/edit", isAuth, shopControllers.updateChapter);
 router.delete("/:chapterId/delete", isAuth, shopControllers.deleteChapter);
 
 module.exports = router;
-
-
