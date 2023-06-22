@@ -10,6 +10,8 @@ import MangaDetails from "./Manga/pages/MangaDetails";
 import { AuthContext } from "./shared/context/auth-context";
 
 import Recomended from "./Manga/pages/Categories/Recomended";
+import Genre from "./Manga/pages/Genre/Genre";
+import Discover from "./Manga/pages/Discover/Discover";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +47,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <h1>Discover</h1>,
+            element: <Discover />,
           },
           {
             path: "Top",
@@ -60,8 +62,8 @@ const router = createBrowserRouter([
             element: <Recomended />,
           },
           {
-            path: "tags/:tagName",
-            element: <h1>Certain tagName</h1>,
+            path: "genres/:genreId/:genreName",
+            element: <Genre />,
           },
         ],
       },
@@ -69,6 +71,7 @@ const router = createBrowserRouter([
         path: "manga/:mangaId",
         element: <MangaDetails />,
       },
+
       {
         path: "read",
         children: [

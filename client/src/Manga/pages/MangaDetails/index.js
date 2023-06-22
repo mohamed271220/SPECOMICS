@@ -29,7 +29,7 @@ const MangaDetails = () => {
           <div className="manga-details__upper">
             <img
               alt={data.data.title}
-              src={data.data.images.jpg.large_image_url}
+              src={data.data.images.webp.large_image_url}
             />
             <h2>
               {data.data.title} {data.data.title_japanese}
@@ -44,10 +44,9 @@ const MangaDetails = () => {
             <h2>Tags</h2>
             <div className="tags">
               {data.data.genres.map((genre) => (
-                <Link to={`/genres/${genre.name}`} className="tag__background">
+                <Link to={`/discover/genres/${genre.mal_id}/${genre.name}`} className="tag__background">
                   <p>
                   {genre.name}
-
                   </p>
                 </Link>
               ))}

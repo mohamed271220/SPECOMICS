@@ -27,3 +27,11 @@ https://api.jikan.moe/v4/top/manga
 
 //
 https://api.jikan.moe/v4/manga?order_by=mal_id&sort=desc
+
+
+
+//
+
+genres have special ids in the data
+
+https://api.jikan.moe/v4/manga?genres=1

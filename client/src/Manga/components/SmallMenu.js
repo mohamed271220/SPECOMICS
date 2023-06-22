@@ -20,8 +20,7 @@ const SmallMenu = (props) => {
           />
         );
       });
-  } 
-  else if (props.CategoryTitle === "Popular") {
+  } else if (props.CategoryTitle === "Popular") {
     content = props.mangaData
       .filter((manga) => manga.popularity <= 100)
       .map((manga) => {
@@ -34,21 +33,55 @@ const SmallMenu = (props) => {
           />
         );
       });
-  }
-  else if (props.CategoryTitle === "Recommended") {
+  } else if (props.CategoryTitle === "Recommended") {
     content = props.mangaData
       .map((manga) => {
         const entry = manga.entry.map((manga) => manga);
         return <SingleManga key={entry[0].mal_id} manga={entry[0]} />;
       })
-      .sort(() => 0.5 - Math.random()).slice(0, 4)
-  } 
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 4);
+  } else {
+    console.log(props.mangaData);
+    content = props.mangaData
+      .map((manga) => {
+        return (
+          <SingleManga
+            isHome={props.isHome}
+            className={props.isHome ? "small-menu__item" : ""}
+            key={manga.mal_id}
+            manga={manga}
+          />
+        );
+      })
+      .slice(0, 4);
+  }
 
   return (
     <Card className="small-menu">
-      <h1>{props.CategoryTitle}</h1>
+      <h1>
+        {props.mangaData.genres
+          ? props.mangaData.genres.find(
+              (genre) => genre.mal_id === props.genreId
+            ).name
+          : props.CategoryTitle}
+      </h1>
       <div className="small-menu-container">{content}</div>
-      <Button danger size="lean" to={`/discover/${props.CategoryTitle}`}>
+      <Button
+        danger
+        size="lean"
+        to={
+          props.genreId
+            ? `/discover/genres/${props.genreId}/${
+                props.mangaData.genres
+                  ? props.mangaData.genres.find(
+                      (genre) => genre.mal_id === props.genreId
+                    ).name
+                  : props.CategoryTitle
+              }`
+            : `/discover/${props.CategoryTitle}`
+        }
+      >
         SEE MORE
       </Button>
     </Card>
