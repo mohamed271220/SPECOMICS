@@ -1,11 +1,10 @@
-
 .footer {
   background-color: rgb(28, 28, 28);
   height: 30rem;
+  width: 100%;
   display: flex;
   bottom: 0;
 }
-
 
 .footer__socials {
   margin: 4rem 2rem;
@@ -33,4 +32,36 @@
 .footer__jikan-icon {
   width: 46px;
   height: 46px;
+}
+
+@media (max-width: 414px) {
+  .footer__socials {
+    margin: 1rem 0.5rem;
+    padding-right: 0.5rem;
+    border-right: 1px solid gray;
+  }
+  .footer__socials h2 {
+    color: white;
+    font-size: 1rem;
+  }
+
+  .footer__socials-icons {
+    flex-wrap: wrap;
+  }
+
+  .footer__socials-icons a {
+    color: rgb(255, 255, 255);
+  }
+
+  .footer__jikan {
+    margin: 1rem 0.5rem;
+    color: white;
+  }
+  .footer__jikan h2 {
+    font-size: 1rem;
+  }
+  .footer__jikan-icon {
+    width: 46px;
+    height: 46px;
+  }
 }

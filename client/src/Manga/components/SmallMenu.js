@@ -60,11 +60,7 @@ const SmallMenu = (props) => {
   return (
     <Card className="small-menu">
       <h1>
-        {props.mangaData.genres
-          ? props.mangaData.genres.find(
-              (genre) => genre.mal_id === props.genreId
-            ).name
-          : props.CategoryTitle}
+        { props.CategoryTitle}
       </h1>
       <div className="small-menu-container">{content}</div>
       <Button
@@ -72,13 +68,7 @@ const SmallMenu = (props) => {
         size="lean"
         to={
           props.genreId
-            ? `/discover/genres/${props.genreId}/${
-                props.mangaData.genres
-                  ? props.mangaData.genres.find(
-                      (genre) => genre.mal_id === props.genreId
-                    ).name
-                  : props.CategoryTitle
-              }`
+            ? `/discover/genres/${props.genreId}/${props.CategoryTitle}`
             : `/discover/${props.CategoryTitle}`
         }
       >
@@ -89,3 +79,9 @@ const SmallMenu = (props) => {
 };
 
 export default SmallMenu;
+
+// props.mangaData.genres
+//           ? props.mangaData.genres.find(
+//               (genre) => genre.mal_id === props.genreId
+//             ).name
+//           :

@@ -12,6 +12,7 @@ import { AuthContext } from "./shared/context/auth-context";
 import Recomended from "./Manga/pages/Categories/Recomended";
 import Genre from "./Manga/pages/Genre/Genre";
 import Discover from "./Manga/pages/Discover/Discover";
+import Reads from "./Reader/pages/Reads";
 
 const router = createBrowserRouter([
   {
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <h1>Read</h1>,
+            element: <Reads/>,
           },
           {
             path: ":mangaId",

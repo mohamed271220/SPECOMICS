@@ -43,7 +43,7 @@ exports.getMangas = async (req, res, next) => {
 exports.addManga = async (req, res, next) => {
   const errors = validationResult(req);
   if (!req.file) {
-    const error = new Error("NO PFP PROVIDED!!");
+    const error = new Error("NO Image PROVIDED!!");
     error.statusCode = 422;
     throw error;
   }
@@ -51,7 +51,7 @@ exports.addManga = async (req, res, next) => {
   // test elements
   // const pfp = req.body.pfp;
   //=============================
-  const pfp = req.file.path.replace("\\", "/");
+  const image = req.file.path.replace("\\", "/");
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect");
     error.statusCode = 422;
@@ -63,25 +63,27 @@ exports.addManga = async (req, res, next) => {
   const description = req.body.description;
   const tags = req.body.tags;
 
+  const author = req.body.author;
+
   const manga = new Manga({
     title: title,
-    pfp: pfp,
+    image: image,
     description: description,
-    tags: tags,
-    author: req.userId,
+    author: author,
   });
   try {
-    const sess = await mongoose.startSession();
-    sess.startTransaction();
-    await manga.save({ session: sess });
-    const user = await User.findById(req.userId);
-    user.mangas.push(manga);
-    await user.save({ session: sess });
-    sess.commitTransaction();
+    // const sess = await mongoose.startSession();
+    // sess.startTransaction();
+    // await manga.save({ session: sess });
+    // const user = await User.findById(req.userId);
+    // user.mangas.push(manga);
+    // await user.save({ session: sess });
+    // sess.commitTransaction();
+    await manga.save()
     res.status(201).json({
       message: "Manga created successfully!",
       manga: manga,
-      author: { _id: user._id, name: user.name },
+      // author: { _id: user._id, name: user.name },
     });
   } catch (err) {
     if (!err.statusCode) {

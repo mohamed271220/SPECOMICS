@@ -10,6 +10,7 @@ const shopControllers = require("../controllers/shop");
 const path = require("path");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+const fileUpload = require("../middleware/file-upload");
 // MULTER TO HANDLE MULTIPART FORM DATA
 // CONFIGURE MULTER
 const storage = multer.diskStorage({
@@ -45,7 +46,7 @@ const router = express.Router();
 
 router.get("/", shopControllers.getMangas);
 
-router.post("/newMange", isAuth, shopControllers.addManga);
+router.post("/newManga",fileUpload.single('image'), shopControllers.addManga);
 
 router.get("/:mangaId", shopControllers.getManga);
 //edit a manga

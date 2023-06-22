@@ -1,6 +1,9 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { useGetSingleMangaQuery } from "../../../shared/store/jikanSlice";
+import {
+  useGetCharactersQuery,
+  useGetSingleMangaQuery,
+} from "../../../shared/store/jikanSlice";
 import SkeletonPost from "../../../shared/Loading/Skeleton/SkeletonPost";
 import Button from "../../../shared/components/FormElements/Button/Button";
 import { AiFillStar } from "react-icons/ai";
@@ -17,6 +20,11 @@ const MangaDetails = () => {
   } = useGetRecommendationsQuery();
   const mangaId = useParams().mangaId;
   const { data, isLoading, error } = useGetSingleMangaQuery(mangaId);
+  const {
+    data: charactersData,
+    isLoading: charactersLoading,
+    error: charactersError,
+  } = useGetCharactersQuery(mangaId);
   //   console.log(data.data);
   return (
     <>
@@ -44,17 +52,18 @@ const MangaDetails = () => {
             <h2>Tags</h2>
             <div className="tags">
               {data.data.genres.map((genre) => (
-                <Link to={`/discover/genres/${genre.mal_id}/${genre.name}`} className="tag__background">
-                  <p>
-                  {genre.name}
-                  </p>
+                <Link
+                  to={`/discover/genres/${genre.mal_id}/${genre.name}`}
+                  className="tag__background"
+                >
+                  <p>{genre.name}</p>
                 </Link>
               ))}
             </div>
             <div className="demographics">
+              <h3>Demographics</h3>
               {data.data.demographics.map((demographic) => (
                 <div className="demographic__background">
-                  <h3>Demographics</h3>
                   <p>{demographic.name}</p>
                 </div>
               ))}
@@ -64,9 +73,10 @@ const MangaDetails = () => {
             Explore more about {data.data.title} <CiShare1 />
           </Button>
 
-            <h2>EXPLORE TOO</h2>
+          <div className="characters"></div>
+
+          <h2>EXPLORE TOO</h2>
           <div className="recommendations">
-        
             <div className="category-container">
               {recommendationsLoading && <SkeletonPost />}
               {recommendationsError || recommendationsData === undefined ? (
@@ -79,7 +89,8 @@ const MangaDetails = () => {
                       <SingleManga key={manga.entry.mal_id} manga={entry[0]} />
                     );
                   })
-                  .sort(() => 0.5 - Math.random()).slice(0, 4)
+                  .sort(() => 0.5 - Math.random())
+                  .slice(0, 4)
               )}
             </div>
           </div>
