@@ -1,7 +1,9 @@
 import React from "react";
 import Button from "../../shared/components/FormElements/Button/Button";
 
+
 import ImageUpload from "../../shared/components/ImageUpload/ImageUpload";
+
 
 import Input from "../../shared/components/FormElements/Input/Input";
 
@@ -94,6 +96,7 @@ const AddMangaForm = () => {
           errorText="please provide an image"
           isPfp
         />
+        
         <Button type="submit" disabled={!formState.isValid}>
           ADD MANGA
         </Button>

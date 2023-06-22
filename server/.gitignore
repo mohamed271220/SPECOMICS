@@ -1,7 +1,4 @@
-uploads/images
-/uploads
-uploads/
-./uploads
+./images
 # Logs
 logs
 *.log
