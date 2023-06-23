@@ -18,7 +18,7 @@ const AuthModal = (props) => {
     setIsLoginForm((prevMode) => !prevMode);
   };
 
-  if (auth.isLoggedIn) {
+  if (auth.token) {
     return <Logout {...props} />;
   }
 

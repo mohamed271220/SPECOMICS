@@ -11,6 +11,7 @@ import { AuthContext } from "./shared/context/auth-context";
 
 import Recomended from "./Manga/pages/Categories/Recomended";
 import Genre from "./Manga/pages/Genre/Genre";
+import Genres from "./Manga/pages/Genre/Genres";
 import Discover from "./Manga/pages/Discover/Discover";
 import Reads from "./Reader/pages/Reads";
 import AddAndEditManga from "./Reader/pages/AddAndEditManga";
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
             element: <Recomended />,
           },
           {
+            path: "genres",
+            element: <Genres />,
+          },
+          {
             path: "genres/:genreId/:genreName",
             element: <Genre />,
           },
@@ -91,7 +96,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <Read/>,
+                element: <Read />,
               },
               {
                 path: "addChapter",
@@ -120,16 +125,21 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
+  const [token, setToken] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const login = useCallback((userId, token) => {
+    setToken(token);
+    setUserId(userId);
   }, []);
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
+    setToken(null);
+    setUserId(null);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn: !!token, token, userId, login, logout }}
+    >
       <RouterProvider router={router} />
     </AuthContext.Provider>
   );

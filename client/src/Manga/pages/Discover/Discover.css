@@ -1,0 +1,22 @@
+.Hero__image {
+  position: relative;
+
+}
+.Hero__image h1 {
+  width: fit-content;
+    position: relative;
+}
+.Hero__image img {
+  filter: grayscale(0%);
+  width: 100%;
+  height: 45vh;
+  object-fit: cover;
+  box-shadow: 1px 1px 11px rgb(89, 33, 33);
+}
+@media (max-width:720px) {
+    
+    .Hero__image h1 {
+        width: 55%;
+      }
+
+}

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import AuthModal from "../Auth/AuthModal";
 
 import "./NavLinks.css";
+import { AuthContext } from "../../context/auth-context";
 
 const NavLinks = (props) => {
+  const auth = useContext(AuthContext);
   return (
     <>
       {props.isDrawerOpen && (
@@ -13,12 +15,16 @@ const NavLinks = (props) => {
           className="auth-container__drawer"
           onClick={() => props.setModalIsOpen(true)}
         >
-          <div className="auth-control__drawer">Login | Signup</div>
+          {auth.isLoggedIn ? (
+            <div className="auth-control__drawer">Logout</div>
+          ) : (
+            <div className="auth-control__drawer">Login | Signup</div>
+          )}
         </div>
       )}
       <ul className="nav-links">
         <li>
-          <NavLink className="" to="/" >
+          <NavLink className="" to="/">
             Home
           </NavLink>
         </li>

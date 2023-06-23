@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useGetGenreByIdQuery } from "../../../shared/store/jikanSlice";
 import SingleManga from "../../../shared/components/SingleManga/SingleManga";
 import SkeletonPost from "../../../shared/Loading/Skeleton/SkeletonPost";
+import hero from "../../assets/heroBanner.jpg"
 
 const Genre = () => {
   const genreName = useParams().genreName;
@@ -12,7 +13,10 @@ const Genre = () => {
   const { data, isLoading, error } = useGetGenreByIdQuery(genreId, pageNum);
   return (
     <div className="small-menu">
+       <div className="Hero__image">
+        <img src={hero} alt="hero" />
       <h1>{genreName}</h1>
+      </div>
       <div className="category-container">
         {isLoading && <SkeletonPost />} {error && <div>Error</div>}
         {!isLoading &&

@@ -3,7 +3,7 @@ import AddMangaForm from "../components/AddMangaForm";
 const AddAndEditManga = () => {
   return (
     <div>
-      <AddMangaForm />
+      <AddMangaForm isEdit/>
     </div>
   );
 };

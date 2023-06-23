@@ -56,3 +56,11 @@
     background: rgb(27, 27, 27, 0.8);
   }
 }
+@media (max-width:480px) {
+  .hover-card img {
+    width: 9rem;
+  }
+  .hover-card-info {
+    width: 9rem;
+  }
+}

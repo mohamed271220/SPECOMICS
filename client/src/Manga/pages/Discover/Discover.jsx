@@ -8,9 +8,11 @@ import {
   useGetRecommendationsQuery,
 } from "../../../shared/store/jikanSlice";
 import SkeletonPost from "../../../shared/Loading/Skeleton/SkeletonPost";
-
+import hero from "../../assets/heroBanner.jpg";
+import "./Discover.css";
+import Button from "../../../shared/components/FormElements/Button/Button";
 const Discover = () => {
-  const genreId = Math.floor(Math.random() * 10) ;
+  const genreId = Math.floor(Math.random() * 10);
 
   const {
     data: topData,
@@ -41,6 +43,12 @@ const Discover = () => {
 
   return (
     <div className="Hero">
+      <div className="Hero__image">
+        <img src={hero} alt="hero" />
+        <div className="page_title">
+       
+        </div>
+      </div>
       {/* //================================================= */}
       {topLoading ? (
         <SkeletonPost />
@@ -82,6 +90,7 @@ const Discover = () => {
           mangaData={genreData.data}
         />
       )}
+      <Button danger size={'wide'} to={`genres`} >Explore more genres</Button>
     </div>
   );
 };

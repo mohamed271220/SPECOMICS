@@ -24,6 +24,9 @@
   display: flex;
   margin: 1rem;
   flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+
 }
 .tag__background {
   text-decoration: none;

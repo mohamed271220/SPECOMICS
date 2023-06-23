@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 // Authentication
 const jwt = require("jsonwebtoken");
 
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed");
@@ -16,27 +16,64 @@ exports.signup = (req, res, next) => {
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
-const status= req.body.status;
-  bcrypt
-    .hash(password, 12)
-    .then((hashedPw) => {
-      const user = new User({
-        email: email,
-        password: hashedPw,
-        name: name,
-        status:status,
-      });
-      return user.save();
-    })
-    .then((result) => {
-      res.status(201).json({ message: "User created", userId: result._id });
-    })
-    .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
+  const status = req.body.status;
+
+  let user;
+
+  try {
+    user = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new Error("Signing up failed");
+
+    error.statusCode = 500;
+    return next(error);
+  }
+  if (user) {
+    const error = new Error("User already exists");
+    error.statusCode = 404;
+    return next(error);
+  }
+
+  let hashedPw;
+
+  hashedPw = await bcrypt.hash(password, 12);
+
+  const createdUser = new User({
+    email: email,
+    password: hashedPw,
+    name: name,
+    status: status,
+  });
+  try {
+    user.save();
+  } catch (err) {
+    const error = new Error("Signing up failed");
+    error.statusCode = 500;
+    return next(error);
+  }
+
+  let token;
+
+  try {
+    token = jwt.sign(
+      { userId: createdUser._id.toString(), email: createdUser.email },
+      "TheSecretOfTurningAZeroIntoAnOneIs",
+      {
+        expiresIn: "4h",
       }
-      next(err);
-    });
+    );
+  } catch (err) {
+    const error = new Error("Signing up failed");
+    error.statusCode = 500;
+    return next(error);
+  }
+
+  res.status(201).json({
+    message: "User created",
+    userId: createdUser.id,
+    email: createdUser.email,
+    token: token,
+  });
 };
 
 // LOGIN

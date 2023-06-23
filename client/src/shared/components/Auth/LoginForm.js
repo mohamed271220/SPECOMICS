@@ -12,11 +12,12 @@ import { useForm } from "../../hooks/form-hook";
 import { AuthContext } from "../../context/auth-context";
 import ErrorModal from "../Error/ErrorModal";
 import LoadingSpinner from "../../Loading/LoadingSpinner/LoadingSpinner";
+import { useHttpClient } from "../../hooks/http-hook";
 
 const LoginForm = (props) => {
   const auth = useContext(AuthContext);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isError, setIsError] = React.useState(undefined);
+
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [formState, inputHandler] = useForm(
     {
@@ -34,38 +35,28 @@ const LoginForm = (props) => {
 
   const loginSubmitHandler = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
+
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const response = await sendRequest(
+        "http://localhost:8080/auth/login",
+        "POST",
+        JSON.stringify({
           email: formState.inputs.email.value,
           password: formState.inputs.password.value,
         }),
-      });
-      const responseData = await response.json();
-      if (!response.ok) {
-        throw new Error(responseData.message);
-      }
-      setIsLoading(false);
-      auth.login(responseData.userId);
-      props.onCancel()
-    } catch (err) {
-      console.log(err);
-      setIsLoading(false);
-      setIsError(err.message || "Something went wrong!");
-    }
+        {
+          "Content-Type": "application/json",
+        }
+      );
 
-    console.log(formState.inputs.email.value);
-    console.log(formState.inputs.password.value);
+      auth.login(response.userId, response.token);
+      props.onCancel();
+    } catch (err) {}
   };
 
   return (
     <>
-      <ErrorModal error={isError} onClear={() => setIsError(null)} />
+      <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner asOverlay />}
       <form className="form" onSubmit={loginSubmitHandler}>
         <Input

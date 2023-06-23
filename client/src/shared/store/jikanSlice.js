@@ -26,6 +26,9 @@ export const jikanApi = createApi({
     getCharacters: builder.query({
       query: (id) => `manga/${id}/characters`,
     }),
+    getGenres: builder.query({
+      query: () => `genres/manga`,
+    }),
     getGenreById: builder.query({
       query: (id, page) => `manga?genres=${id}?page=${page}`,
     }),
@@ -38,6 +41,7 @@ export const {
   useGetPopularQuery,
   useGetRecommendationsQuery,
   useGetSingleMangaQuery,
+  useGetGenresQuery,
   useGetGenreByIdQuery,
-  useGetCharactersQuery
+  useGetCharactersQuery,
 } = jikanApi;

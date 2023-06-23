@@ -59,7 +59,11 @@ const MangaDetails = () => {
                   <p>{genre.name}</p>
                 </Link>
               ))}
+
             </div>
+              <Link className="more-tags" to={'/discover/genres'}>
+                Explore more genres <CiShare1 />
+              </Link>
             <div className="demographics">
               <h3>Demographics</h3>
               {data.data.demographics.map((demographic) => (
