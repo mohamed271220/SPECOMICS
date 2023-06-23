@@ -15,10 +15,8 @@ const app = express();
 
 app.use(bodyParser.json());
 
-
-
 // SET STATIC FOLDER
-app.use("/uploads/images", express.static(path.join(__dirname, "images")));
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
 // CORS CONFIGURATION
 app.use((req, res, next) => {

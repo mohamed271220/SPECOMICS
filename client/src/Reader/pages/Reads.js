@@ -1,15 +1,50 @@
-import React from 'react'
-import AddMangaForm from '../components/AddMangaForm'
+import React, { useEffect, useState } from "react";
+import AddMangaForm from "../components/AddMangaForm";
 
+import SkeletonPost from "../../shared/Loading/Skeleton/SkeletonPost";
 
+import { useHttpClient } from "../../shared/hooks/http-hook";
+import ErrorModal from "../../shared/components/Error/ErrorModal";
+import SingleManga from "../components/SingleRead";
+import Card from "../../shared/components/UI/Card/Card";
 
 const Reads = () => {
+  const [mangas, setMangas] = useState([]);
+
+  const { sendRequest, isLoading, error, data } = useHttpClient();
+
+  useEffect(() => {
+    const fetchMangas = async () => {
+      try {
+        const data = await sendRequest("http://localhost:8080/manga/");
+        // mangas: mangas,
+        // totalItems: totalItems,
+        setMangas(data.mangas);
+        console.log(data.mangas);
+        console.log(data.totalItems);
+      } catch (err) {}
+    };
+    fetchMangas();
+  }, [sendRequest]);
+
   return (
     <div>
-        <AddMangaForm/>
-       
+      {isLoading && <SkeletonPost />}
+      {/* <ErrorModal error={error} /> */}
+      {!isLoading && mangas && mangas.length > 0 && (
+        <Card className="small-menu">
+<h1>
+ Reads
+</h1>
+<div className="small-menu-container"> {mangas.map((manga) => (
+            <div className="Reads-container">
+              <SingleManga manga={manga} key={manga._id} />
+            </div>
+          ))}</div>
+</Card>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Reads
+export default Reads;

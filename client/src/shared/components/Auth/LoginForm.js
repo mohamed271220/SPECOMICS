@@ -13,7 +13,7 @@ import { AuthContext } from "../../context/auth-context";
 import ErrorModal from "../Error/ErrorModal";
 import LoadingSpinner from "../../Loading/LoadingSpinner/LoadingSpinner";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState(undefined);
@@ -51,8 +51,8 @@ const LoginForm = () => {
         throw new Error(responseData.message);
       }
       setIsLoading(false);
-
-      auth.login(responseData.token, responseData.userId);
+      auth.login(responseData.userId);
+      props.onCancel()
     } catch (err) {
       console.log(err);
       setIsLoading(false);

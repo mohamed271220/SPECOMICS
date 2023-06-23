@@ -13,6 +13,7 @@ import Recomended from "./Manga/pages/Categories/Recomended";
 import Genre from "./Manga/pages/Genre/Genre";
 import Discover from "./Manga/pages/Discover/Discover";
 import Reads from "./Reader/pages/Reads";
+import AddAndEditManga from "./Reader/pages/AddAndEditManga";
 
 const router = createBrowserRouter([
   {
@@ -78,7 +79,11 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Reads/>,
+            element: <Reads />,
+          },
+          {
+            path: "addManga",
+            element: <AddAndEditManga />,
           },
           {
             path: ":mangaId",
@@ -88,8 +93,22 @@ const router = createBrowserRouter([
                 element: <h1>Manga Details</h1>,
               },
               {
+                path: "add",
+                element: <h1>add chapter</h1>,
+              },
+              {
+                path: "edit",
+                element: <h1>Edit Manga</h1>,
+              },
+              {
                 path: ":chapterId",
                 element: <h1>Chapter Details</h1>,
+                children: [
+                  {
+                    path: "edit",
+                    element: <h1>Edit chapter</h1>,
+                  },
+                ],
               },
             ],
           },
