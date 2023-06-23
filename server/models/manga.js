@@ -7,7 +7,6 @@ const mangaSchema = new Schema(
     image: { type: String, required: true },
     author: {
       type: String,
-
       required: true,
     },
     // addedBy: {

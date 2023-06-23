@@ -5,13 +5,13 @@ import SkeletonPost from "../../shared/Loading/Skeleton/SkeletonPost";
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/Error/ErrorModal";
-import SingleManga from "../components/SingleRead";
+import SingleRead from "../components/SingleRead";
 import Card from "../../shared/components/UI/Card/Card";
 
 const Reads = () => {
-  const [mangas, setMangas] = useState([]);
-
+  
   const { sendRequest, isLoading, error, data } = useHttpClient();
+  const [mangas, setMangas] = useState([]);
 
   useEffect(() => {
     const fetchMangas = async () => {
@@ -33,15 +33,16 @@ const Reads = () => {
       {/* <ErrorModal error={error} /> */}
       {!isLoading && mangas && mangas.length > 0 && (
         <Card className="small-menu">
-<h1>
- Reads
-</h1>
-<div className="small-menu-container"> {mangas.map((manga) => (
-            <div className="Reads-container">
-              <SingleManga manga={manga} key={manga._id} />
-            </div>
-          ))}</div>
-</Card>
+          <h1>New Releases</h1>
+          <div className="small-menu-container">
+          
+            {mangas.map((manga) => (
+              <div className="Reads-container">
+                <SingleRead manga={manga} key={manga._id} />
+              </div>
+            ))}
+          </div>
+        </Card>
       )}
     </div>
   );

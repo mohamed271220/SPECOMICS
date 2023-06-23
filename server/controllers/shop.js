@@ -79,7 +79,7 @@ exports.addManga = async (req, res, next) => {
     // user.mangas.push(manga);
     // await user.save({ session: sess });
     // sess.commitTransaction();
-    await manga.save()
+    await manga.save();
     res.status(201).json({
       message: "Manga created successfully!",
       manga: manga,
@@ -109,13 +109,13 @@ exports.getManga = async (req, res, next) => {
     if (!manga) {
       const error = new Error("Could not find post");
       error.statusCode = 404;
-      throw error;
+      next(error);
       // throwing an error in then is like saying go to the next catch block
     }
 
     res.status(200).json({
       message: "Fetched manga successfully!",
-      manga: manga,
+      manga: manga.toObject({ getters: true }),
     });
   } catch (err) {
     if (!err.statusCode) {
