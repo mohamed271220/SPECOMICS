@@ -9,11 +9,11 @@ const mangaSchema = new Schema(
       type: String,
       required: true,
     },
-    // addedBy: {
-    //   type: mongoose.Types.ObjectId,
-    //   ref: "User",
-    //   required: false,
-    // },
+    addedBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
     description: { type: String, required: true },
     tags: [{ type: String }],
     chapters: [

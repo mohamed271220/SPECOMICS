@@ -70,6 +70,7 @@ exports.addManga = async (req, res, next) => {
     image: image,
     description: description,
     author: author,
+    addedBy: req.userId,
   });
   try {
     // const sess = await mongoose.startSession();

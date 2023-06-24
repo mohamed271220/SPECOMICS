@@ -7,9 +7,10 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/Error/ErrorModal";
 import SingleRead from "../components/SingleRead";
 import Card from "../../shared/components/UI/Card/Card";
+import { NavLink } from "react-router-dom";
+import Button from "../../shared/components/FormElements/Button/Button";
 
 const Reads = () => {
-  
   const { sendRequest, isLoading, error, data } = useHttpClient();
   const [mangas, setMangas] = useState([]);
 
@@ -31,11 +32,11 @@ const Reads = () => {
     <div>
       {isLoading && <SkeletonPost />}
       {/* <ErrorModal error={error} /> */}
+      <Button danger size={'wide'} to="/read/addManga">Add</Button>
       {!isLoading && mangas && mangas.length > 0 && (
         <Card className="small-menu">
           <h1>New Releases</h1>
           <div className="small-menu-container">
-          
             {mangas.map((manga) => (
               <div className="Reads-container">
                 <SingleRead manga={manga} key={manga._id} />

@@ -17,7 +17,7 @@ const router = express.Router();
 
 router.get("/", shopControllers.getMangas);
 
-router.post("/newManga",fileUpload.single('image'), shopControllers.addManga);
+router.post("/newManga",fileUpload.single('image'),isAuth, shopControllers.addManga);
 
 router.get("/:mangaId", shopControllers.getManga);
 //edit a manga
@@ -28,7 +28,7 @@ router.get("/:userId/favorites", isAuth, shopControllers.getFavoritesByUserId);
 // add too favorites
 router.post("/:userId/fav", isAuth, shopControllers.addToFavReads);
 
-router.post("/:userId/fav/jikanId", isAuth, shopControllers.addToFavManga);
+router.post("/:userId/fav/:jikanId", isAuth, shopControllers.addToFavManga);
 
 router.delete("/:userId/fav",isAuth , shopControllers.removeFromFav);
 

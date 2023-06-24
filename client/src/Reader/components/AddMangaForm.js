@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../../shared/components/FormElements/Button/Button";
 
-
 import ImageUpload from "../../shared/components/ImageUpload/ImageUpload";
-
 
 import Input from "../../shared/components/FormElements/Input/Input";
 
@@ -14,13 +12,16 @@ import {
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
 
+import { AuthContext } from "../../shared/context/auth-context";
+
 import { useNavigate } from "react-router-dom";
 
-import  ErrorModal  from "../../shared/components/Error/ErrorModal";
+import ErrorModal from "../../shared/components/Error/ErrorModal";
 import LoadingSpinner from "../../shared/Loading/LoadingSpinner/LoadingSpinner";
 // import "./AddMangaForm.css";
 
 const AddMangaForm = () => {
+  const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -43,7 +44,6 @@ const AddMangaForm = () => {
     },
   });
 
-
   const mangaSubmitHandler = async (event) => {
     event.preventDefault();
 
@@ -53,7 +53,14 @@ const AddMangaForm = () => {
       formData.append("title", formState.inputs.title.value);
       formData.append("description", formState.inputs.description.value);
       formData.append("author", formState.inputs.author.value);
-      await sendRequest("http://localhost:8080/manga/newManga", "POST", formData);
+      await sendRequest(
+        "http://localhost:8080/manga/newManga",
+        "POST",
+        formData,
+        {
+          Authorization: "Bearer " + auth.token,
+        }
+      );
       navigate("/");
     } catch (err) {}
   };
@@ -96,7 +103,7 @@ const AddMangaForm = () => {
           errorText="please provide an image"
           isPfp
         />
-        
+
         <Button type="submit" disabled={!formState.isValid}>
           ADD MANGA
         </Button>
