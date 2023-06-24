@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import SkeletonPost from "../../shared/Loading/Skeleton/SkeletonPost";
@@ -11,8 +11,10 @@ import Card from "../../shared/components/UI/Card/Card";
 import { CiShare1 } from "react-icons/ci";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/Error/ErrorModal";
+import { AuthContext } from "../../shared/context/auth-context";
 
 const Read = () => {
+  const auth= useContext(AuthContext)
   const readId = useParams().readId;
   const [manga, setManga] = useState({});
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
@@ -73,7 +75,7 @@ const Read = () => {
             ) : (
               <Card>
               <h2> No chapters yet</h2>
-
+              {auth.token && <Button to={`/read/${readId}/addChapter`}>Add Chapter</Button>}
               </Card>
             )}
           </div>

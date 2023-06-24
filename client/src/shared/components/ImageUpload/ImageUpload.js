@@ -6,8 +6,8 @@ import "./ImageUpload.css";
 
 const ImageUpload = (props) => {
   const [file, setFile] = useState();
-  const [previewUrl, setPreviewUrl] = useState();
   const [isValid, setIsValid] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState();
 
   const filePickerRef = useRef();
 

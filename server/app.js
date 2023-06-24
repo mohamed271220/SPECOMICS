@@ -1,32 +1,42 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const fs = require("fs");
 // routes import
 const authRoutes = require("./routes/auth");
-const newsRoutes = require("../client/should_be_here/newsAPI");
-const discoverRoutes = require("../client/should_be_here/discoverPage");
+
 // SETTING MULTER
 const path = require("path");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
-
+var cors = require("cors");
+const fileUpload = require("./middleware/file-upload");
+const filesUpload= multer({dest:'uploads/images'})
 const app = express();
 
-app.use(bodyParser.json());
-
 // SET STATIC FOLDER
-app.use("/uploads/images", express.static(path.join("uploads", "images")));
+app.use(express.json());
+app.use('/uploads', express.static(__dirname + '/uploads'))
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:3000',
+}));
 
-// CORS CONFIGURATION
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
+
+
+app.post("/upload", filesUpload.array("photos", 40), (req, res) => {
+  console.log(req.files);
+  
+  const uploadedFiles = []
+  for (let i = 0; i < req.files.length; i++) {
+      const { path, originalname } = req.files[i];
+      const parts = originalname.split('.')
+      const ext = parts[parts.length - 1];
+      const newPath = path + '.' + ext;
+      fs.renameSync(path, newPath)
+      uploadedFiles.push(newPath.replace('uploads', ''))
+  }
+  res.json(uploadedFiles);
 });
 
 //TODO: ROUTES

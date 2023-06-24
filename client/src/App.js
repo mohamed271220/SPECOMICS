@@ -16,6 +16,11 @@ import Discover from "./Manga/pages/Discover/Discover";
 import Reads from "./Reader/pages/Reads";
 import AddAndEditManga from "./Reader/pages/AddAndEditManga";
 import Read from "./Reader/pages/Read";
+import AddChapter from "./Reader/pages/AddChapter";
+import axios from "axios";
+
+axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
   {
@@ -100,7 +105,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "addChapter",
-                element: <h1>add chapter</h1>,
+                element: <AddChapter />,
               },
               {
                 path: "edit",

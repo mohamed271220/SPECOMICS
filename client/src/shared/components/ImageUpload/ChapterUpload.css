@@ -39,7 +39,7 @@
   align-items: center;
 }
 
-.chapter-upload.image {
+.chapter-upload .image {
   margin: 1rem 0.5rem;
   position: relative;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
@@ -65,17 +65,24 @@
 }
 
 .chapter-upload .upload-btn {
-  cursor: pointer;
-  display: block;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
   margin: 0 auto;
   border: none;
   border-radius: 20px;
   width: 10rem;
   height: 3rem;
   color: white;
-  background-color: green;
+  background-color: rgb(255, 0, 0);
 }
 
+.chapter-upload .upload-btn p {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
 .chapter-upload label:hover,
 .upload-btn:hover {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,

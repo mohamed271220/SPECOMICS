@@ -1,6 +1,6 @@
 const express = require("express");
 const { body } = require("express-validator");
-
+const fs = require("fs");
 const isAuth = require("../middleware/is-auth");
 const shopControllers = require("../controllers/shop");
 
@@ -11,7 +11,6 @@ const path = require("path");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const fileUpload = require("../middleware/file-upload");
-
 
 const router = express.Router();
 
@@ -36,9 +35,12 @@ router.delete("/:userId/fav",isAuth , shopControllers.removeFromFav);
 // get a single chapter
 router.get("/:chapterId", shopControllers.getChapter);
 
+
+
 // add a chapter
 router.post(
-  "/:mangaId/chapters",
+  "/:mangaId/addChapter",
+  fileUpload.array('images',40),
   isAuth,
   
   shopControllers.addChapter

@@ -340,6 +340,7 @@ exports.removeFromFav = async (req, res, next) => {
 exports.addChapter = async (req, res, next) => {
   const mangaId = req.params.mangaId;
   const errors = validationResult(req);
+  console.log(req.files);
   if (!req.files) {
     const error = new Error("NO PANELS PROVIDED!!");
     error.statusCode = 422;
@@ -349,9 +350,7 @@ exports.addChapter = async (req, res, next) => {
   // test elements
   // const pagesURls =req.body.pagesURls;
   //======================================
-  const pagesURls = req.files.map((file) => {
-    file.path.replace("\\", "/");
-  });
+
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect");
     error.statusCode = 422;
@@ -374,12 +373,13 @@ exports.addChapter = async (req, res, next) => {
     return next(error);
   }
 
+  res.json(uploadedFiles)
   const title = req.body.title;
   const chapterNumber = req.body.chapterNumber;
   const chapter = new Chapter({
     title: title,
     chapterNumber: chapterNumber,
-    pagesURls: pagesURls,
+    pagesURls: uploadedFiles,
     mangaId: mangaId,
   });
   try {
