@@ -33,7 +33,7 @@ router.delete("/:userId/fav",isAuth , shopControllers.removeFromFav);
 
 //TODO:chapter routes
 // get a single chapter
-router.get("/:chapterId", shopControllers.getChapter);
+router.get("/chapters/:chapterId", shopControllers.getChapter);
 
 
 
@@ -42,7 +42,6 @@ router.post(
   "/:mangaId/addChapter",
   fileUpload.array('images',40),
   isAuth,
-  
   shopControllers.addChapter
 );
 // edit a chapter

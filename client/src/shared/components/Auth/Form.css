@@ -1,11 +1,41 @@
-.form{
-    position: relative;
-    list-style: none;
+.form {
+  position: relative;
+  list-style: none;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 100%;
+  max-width: 40rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  background: white;
+}
+.logout-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logout-container h1 {
+  font-weight: 300;
+  color: red;
+  margin-bottom:1rem ;
+}
+.logout-control {
+  margin: 1rem auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .logout-container img {
+    width: 13rem;
     margin: 0 auto;
-    padding: 1rem;
-    width: 100%;
-    max-width: 40rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    border-radius: 6px;
-    background: white;
+  }
+  .logout-container h1 {
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: red;
+  }
+  .logout-control {
+    flex-wrap: nowrap;
+  }
 }

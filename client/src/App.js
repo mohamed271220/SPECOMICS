@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./Manga/pages/Home/HomePage";
 import News from "./News/pages/News";
@@ -18,8 +18,9 @@ import AddAndEditManga from "./Reader/pages/AddAndEditManga";
 import Read from "./Reader/pages/Read";
 import AddChapter from "./Reader/pages/AddChapter";
 import axios from "axios";
+import ChapterReader from "./Reader/pages/ChapterReader";
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
@@ -113,7 +114,7 @@ const router = createBrowserRouter([
               },
               {
                 path: ":chapterId",
-                element: <h1>Chapter Details</h1>,
+                element: <ChapterReader />,
                 children: [
                   {
                     path: "edit",
@@ -129,17 +130,59 @@ const router = createBrowserRouter([
   },
 ]);
 
+let LogoutTimer;
+
 function App() {
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(null);
-  const login = useCallback((userId, token) => {
+  const [tokenExpirationDate, setTokenExpirationDate] = useState();
+
+  const login = useCallback((userId, token, expirationDate) => {
     setToken(token);
     setUserId(userId);
+    const tokenExpirationDate =
+      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+    setTokenExpirationDate(tokenExpirationDate);
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        userId: userId,
+        token: token,
+        expiration: tokenExpirationDate.toISOString(),
+      })
+    );
   }, []);
   const logout = useCallback(() => {
     setToken(null);
+    setTokenExpirationDate(null);
     setUserId(null);
+    localStorage.removeItem("userData");
   }, []);
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+
+    if (
+      storedData &&
+      storedData.token &&
+      new Date(storedData.expiration) > new Date()
+    ) {
+      login(
+        storedData.userId,
+        storedData.token,
+        new Date(storedData.expiration)
+      );
+    }
+  }, [login]);
+
+  useEffect(() => {
+    if (token && tokenExpirationDate) {
+      const remainingTime =
+        tokenExpirationDate.getTime() - new Date().getTime();
+      LogoutTimer = setTimeout(logout, remainingTime);
+    } else {
+      clearTimeout(LogoutTimer);
+    }
+  }, [token, logout, tokenExpirationDate]);
 
   return (
     <AuthContext.Provider

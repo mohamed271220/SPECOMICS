@@ -14,7 +14,7 @@ import ErrorModal from "../../shared/components/Error/ErrorModal";
 import { AuthContext } from "../../shared/context/auth-context";
 
 const Read = () => {
-  const auth= useContext(AuthContext)
+  const auth = useContext(AuthContext);
   const readId = useParams().readId;
   const [manga, setManga] = useState({});
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
@@ -50,7 +50,7 @@ const Read = () => {
   }, [sendRequest, readId]);
   return (
     <>
-      {error !== null && <ErrorModal error={error} onClear={clearError} />}
+      {error && <ErrorModal error={error} onClear={clearError} />}
       {isLoading ? (
         <SkeletonPost />
       ) : (
@@ -67,15 +67,22 @@ const Read = () => {
           <div className="chapters-container">
             <h2>Chapters</h2>
             {manga.chapters && manga.chapters.length > 0 ? (
-              manga.chapters.map((chapter) => (
+              <div>
+              {manga.chapters.map((chapter) => (
                 <div className="chapters-container__item">
-                  <Link to={`${chapter._id}`}></Link>
+                  <Link to={`${chapter.id}`}>
+                    chapter : {chapter.chapterNumber}
+                  </Link>
                 </div>
-              ))
+              ))}
+                <Button to={`/read/${readId}/addChapter`}>Add Chapter</Button>
+              </div>
             ) : (
               <Card>
-              <h2> No chapters yet</h2>
-              {auth.token && <Button to={`/read/${readId}/addChapter`}>Add Chapter</Button>}
+                <h2> No chapters yet</h2>
+                {auth.token && (
+                  <Button to={`/read/${readId}/addChapter`}>Add Chapter</Button>
+                )}
               </Card>
             )}
           </div>

@@ -70,7 +70,7 @@ exports.addManga = async (req, res, next) => {
     image: image,
     description: description,
     author: author,
-    addedBy: req.userId,
+    addedBy: req.userData.userId,
   });
   try {
     // const sess = await mongoose.startSession();
@@ -153,6 +153,16 @@ exports.updateManga = async (req, res, next) => {
   let manga;
   try {
     manga = await Manga.findById(mangaId);
+    if (!manga) {
+      const error = new Error("Could not find a manga");
+      error.statusCode = 404;
+      return next(error);
+    }
+    if (manga.addedBy.toString() !== req.userData.userId) {
+      const error = new Error("Not Authorized");
+      error.statusCode = 401;
+      return next(error);
+    }
     manga.title = title;
     manga.description = description;
     manga.tags = tags;
@@ -171,18 +181,23 @@ exports.deleteManga = async (req, res, next) => {
   const mangaId = req.params.mangaId;
   let manga;
   try {
-    manga = await Manga.findById(mangaId).populate("author");
+    manga = await Manga.findById(mangaId).populate("addedBy");
     if (!manga) {
       const error = new Error("Could not find a manga");
       error.statusCode = 404;
       throw error;
     }
+    if (manga.addedBy.toString() !== req.userData.userId) {
+      const error = new Error("Not Authorized");
+      error.statusCode = 401;
+      return next(error);
+    }
 
     const sess = await mongoose.startSession();
     sess.startTransaction();
     manga.deleteOne({ session: sess });
-    manga.author.mangas.pull(manga);
-    await manga.author.save({ session: sess });
+    manga.addedBy.mangas.pull(manga);
+    await manga.addedBy.save({ session: sess });
     sess.commitTransaction();
   } catch (err) {
     const error = new Error("Something went wrong");
@@ -340,12 +355,12 @@ exports.removeFromFav = async (req, res, next) => {
 exports.addChapter = async (req, res, next) => {
   const mangaId = req.params.mangaId;
   const errors = validationResult(req);
-  console.log(req.files);
-  if (!req.files) {
-    const error = new Error("NO PANELS PROVIDED!!");
-    error.statusCode = 422;
-    throw error;
-  }
+  // console.log(req.files);
+  // if (!req.files) {
+  //   const error = new Error("NO PANELS PROVIDED!!");
+  //   error.statusCode = 422;
+  //   throw error;
+  // }
   //====================
   // test elements
   // const pagesURls =req.body.pagesURls;
@@ -373,13 +388,13 @@ exports.addChapter = async (req, res, next) => {
     return next(error);
   }
 
-  res.json(uploadedFiles)
   const title = req.body.title;
   const chapterNumber = req.body.chapterNumber;
+  const pagesURls = req.body.addedPhotos;
   const chapter = new Chapter({
     title: title,
     chapterNumber: chapterNumber,
-    pagesURls: uploadedFiles,
+    pagesURls: pagesURls,
     mangaId: mangaId,
   });
   try {
@@ -438,6 +453,7 @@ exports.deleteChapter = async (req, res, next) => {
     error.statusCode = 404;
     return next(error);
   }
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -459,18 +475,18 @@ exports.updateChapter = async (req, res, next) => {
   const chapterId = req.params.chapterId;
   const errors = validationResult(req);
 
-  if (!req.files) {
-    const error = new Error("NO PANELS PROVIDED!!");
-    error.statusCode = 422;
-    throw error;
-  }
-  //====================
-  // test elements
-  // const pagesURls =req.body.pagesURls;
-  //======================================
-  const pagesURls = req.files.map((file) => {
-    file.path.replace("\\", "/");
-  });
+  // if (!req.files) {
+  //   const error = new Error("NO PANELS PROVIDED!!");
+  //   error.statusCode = 422;
+  //   throw error;
+  // }
+  // //====================
+  // // test elements
+  // // const pagesURls =req.body.pagesURls;
+  // //======================================
+  // const pagesURls = req.files.map((file) => {
+  //   file.path.replace("\\", "/");
+  // });
 
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect");
@@ -479,6 +495,7 @@ exports.updateChapter = async (req, res, next) => {
   }
   const title = req.body.title;
   const chapterNumber = req.body.chapterNumber;
+  const pagesURls = req.body.addedPhotos;
   let chapter;
   try {
     chapter = await Chapter.findById(chapterId);

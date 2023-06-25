@@ -1,9 +1,15 @@
-import React from 'react'
+import axios from "axios";
+import React from "react";
+import { useParams } from "react-router-dom";
 
 const ChapterReader = () => {
-  return (
-    <div>ChapterReader</div>
-  )
-}
+  const { chapterId } = useParams();
 
-export default ChapterReader
+
+  axios.get(`manga/chapters/${chapterId}`).then(response=>console.log(response))
+
+
+  return <div></div>;
+};
+
+export default ChapterReader;
