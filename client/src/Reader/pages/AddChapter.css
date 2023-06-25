@@ -1,13 +1,16 @@
-.form-control h2 {
+.chapter-form__control{
+  padding: 2rem;
+}
+.chapter-form__control h2 {
   font-size: xx-large;
   margin-top: 3rem;
 }
 
-.form-control p {
+.chapter-form__control p {
   color: gray;
 }
 
-.form-control div {
+.chapter-form__control .form-control__collection {
   display: grid;
   margin-top: 0.5rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -20,6 +23,18 @@
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
+.chapter-form__control input{
+  width: 100%;
+  font: inherit;
+  border: 1px solid #ccc;
+  background-color: white;
+  padding: 0.5rem 0.65rem;
+}
+.chapter-form__control input:focus{
+  outline: none;
+  background: #ebebeb;
+  border-color: #510077;
+}
 .form-control__uploader {
   display: flex;
   position: relative;
@@ -28,6 +43,7 @@
 .form-control__uploader img {
   object-fit: cover;
   width: 100%;
+  height: 8rem;
   border-radius: 1rem;
 }
 .btn-1 {
@@ -64,6 +80,31 @@
   cursor: pointer;
 }
 .btn-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.form-control__label {
+  display: flex;
+  padding: 0.5rem;
+  background-color: transparent;
+  color: #4b5563;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  border-radius: 1rem;
+  border-width: 1px;
+  gap: 0.25rem;
+}
+.form-control__label .hidden {
+  display: none;
+}
+.form-control__label svg {
+  width: 2rem;
+  height: 2rem;
+}
+.form-control__btn {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

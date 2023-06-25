@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../../shared/Loading/LoadingSpinner/LoadingSpinner";
 import "./AddChapter.css";
+import Button from "../../shared/components/FormElements/Button/Button";
 
 const AddChapter = () => {
   const { readId } = useParams();
@@ -95,7 +96,7 @@ const AddChapter = () => {
       <div>
         {isLoading && <LoadingSpinner />}
         <div>
-          <form className="form-control" onSubmit={savePlace}>
+          <form className="chapter-form__control" onSubmit={savePlace}>
             <h2>Title</h2>
             <p>please enter chapter name</p>
             <input
@@ -116,7 +117,7 @@ const AddChapter = () => {
             <h2>Enter the panels </h2>
             <p>by order</p>
 
-            <div>
+            <div className="form-control__collection">
               {addedPhotos.length > 0 &&
                 addedPhotos.map((link) => (
                   <div className="form-control__uploader" key={link}>
@@ -178,13 +179,11 @@ const AddChapter = () => {
                   </div>
                 ))}
               <label
-                className=" h-32 flex items-center gap-1  justify-center border bg-transparent rounded-2xl
-                        p-2 text-2xl text-gray-600 cursor-pointer"
-              >
+                className="form-control__label" >
                 <input
                   type="file"
                   multiple
-                  name=""
+                  name="file"
                   readId=""
                   className="hidden"
                   onChange={uploadPhoto}
@@ -195,7 +194,7 @@ const AddChapter = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-8 h-8"
+               
                 >
                   <path
                     strokeLinecap="round"
@@ -208,7 +207,7 @@ const AddChapter = () => {
             </div>
 
             <div>
-              <button className="primary my-4">Save</button>
+              <Button danger size={'wide'} className="form-control__btn">Save</Button>
             </div>
           </form>
         </div>

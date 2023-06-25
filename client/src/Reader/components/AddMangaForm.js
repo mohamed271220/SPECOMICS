@@ -104,7 +104,7 @@ const AddMangaForm = () => {
           isPfp
         />
 
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button danger size={'wide'} type="submit" disabled={!formState.isValid}>
           ADD MANGA
         </Button>
       </form>
