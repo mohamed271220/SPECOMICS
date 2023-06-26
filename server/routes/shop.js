@@ -16,11 +16,23 @@ const router = express.Router();
 
 router.get("/", shopControllers.getMangas);
 
-router.post("/newManga",fileUpload.single('image'),isAuth, shopControllers.addManga);
+router.post(
+  "/newManga",
+  fileUpload.single("image"),
+  isAuth,
+  shopControllers.addManga
+);
 
 router.get("/:mangaId", shopControllers.getManga);
 //edit a manga
-router.put("/:mangaId/edit", isAuth, shopControllers.updateManga);
+router.put(
+  "/:mangaId/edit",
+  fileUpload.single("image"),
+  isAuth,
+  shopControllers.updateManga
+);
+
+router.delete("/:mangaId", isAuth, shopControllers.deleteManga);
 
 // TODO: favorites routes
 router.get("/:userId/favorites", isAuth, shopControllers.getFavoritesByUserId);
@@ -29,18 +41,16 @@ router.post("/:userId/fav", isAuth, shopControllers.addToFavReads);
 
 router.post("/:userId/fav/:jikanId", isAuth, shopControllers.addToFavManga);
 
-router.delete("/:userId/fav",isAuth , shopControllers.removeFromFav);
+router.delete("/:userId/fav", isAuth, shopControllers.removeFromFav);
 
 //TODO:chapter routes
 // get a single chapter
 router.get("/chapters/:chapterId", shopControllers.getChapter);
 
-
-
 // add a chapter
 router.post(
   "/:mangaId/addChapter",
-  fileUpload.array('images',40),
+  fileUpload.array("images", 40),
   isAuth,
   shopControllers.addChapter
 );

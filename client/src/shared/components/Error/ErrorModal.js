@@ -11,7 +11,11 @@ const ErrorModal = (props) => {
       show={!!props.error}
       footer={<Button onClick={props.onClear}>Okay</Button>}
     >
-      <p>{props.error}</p>
+      <p>
+        {props.error === "Internal Server Error"
+          ? "Please login first"
+          : props.error}
+      </p>
     </Modal>
   );
 };

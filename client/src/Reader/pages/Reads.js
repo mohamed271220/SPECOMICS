@@ -33,9 +33,9 @@ const Reads = () => {
   return (
     <div>
       {isLoading && <SkeletonPost />}
-      {error !== "The user aborted a request." && (
+      {/* {error !== "The user aborted a request." && (
         <ErrorModal error={error} onClear={clearError} />
-      )}
+      )} */}
       {auth.isLoggedIn && (
         <Button danger size={"wide"} to="/read/addManga">
           Add

@@ -1,0 +1,7 @@
+.chapters-container__item {
+  /* border-bottom: 1px gray solid; */
+  border-top: 1px gray solid;
+padding: 2rem;
+margin: 1rem 0;
+text-decoration: none;
+}

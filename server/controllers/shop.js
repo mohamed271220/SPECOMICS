@@ -130,7 +130,7 @@ exports.getManga = async (req, res, next) => {
 exports.updateManga = async (req, res, next) => {
   const errors = validationResult(req);
   if (!req.file) {
-    const error = new Error("NO PFP PROVIDED!!");
+    const error = new Error("NO Image PROVIDED!!");
     error.statusCode = 422;
     throw error;
   }
@@ -138,7 +138,8 @@ exports.updateManga = async (req, res, next) => {
   // test elements
   // const pfp = req.body.pfp;
   //=============================
-  const pfp = req.file.path.replace("\\", "/");
+  const image = req.file.path.replace("\\", "/");
+
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect");
     error.statusCode = 422;
@@ -158,14 +159,14 @@ exports.updateManga = async (req, res, next) => {
       error.statusCode = 404;
       return next(error);
     }
-    if (manga.addedBy.toString() !== req.userData.userId) {
+    if (manga.addedBy.toString() !== req.userId) {
       const error = new Error("Not Authorized");
       error.statusCode = 401;
       return next(error);
     }
     manga.title = title;
     manga.description = description;
-    manga.tags = tags;
+    manga.image = image;
     await manga.save();
   } catch (err) {
     const error = new Error("Something went wrong");
@@ -187,7 +188,8 @@ exports.deleteManga = async (req, res, next) => {
       error.statusCode = 404;
       throw error;
     }
-    if (manga.addedBy.toString() !== req.userData.userId) {
+    if (manga.addedBy._id.toString() !== req.userId) {
+      console.log(manga.addedBy._id.toString() + "!==" + req.userId);
       const error = new Error("Not Authorized");
       error.statusCode = 401;
       return next(error);
@@ -195,12 +197,12 @@ exports.deleteManga = async (req, res, next) => {
 
     const sess = await mongoose.startSession();
     sess.startTransaction();
-    manga.deleteOne({ session: sess });
+    await manga.deleteOne({ session: sess });
     manga.addedBy.mangas.pull(manga);
     await manga.addedBy.save({ session: sess });
-    sess.commitTransaction();
+    await sess.commitTransaction();
   } catch (err) {
-    const error = new Error("Something went wrong");
+    const error = err || new Error("Something went wrong");
     error.statusCode = 500;
     return next(error);
   }

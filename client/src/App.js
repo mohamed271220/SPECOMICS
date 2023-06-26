@@ -14,11 +14,12 @@ import Genre from "./Manga/pages/Genre/Genre";
 import Genres from "./Manga/pages/Genre/Genres";
 import Discover from "./Manga/pages/Discover/Discover";
 import Reads from "./Reader/pages/Reads";
-import AddAndEditManga from "./Reader/pages/AddAndEditManga";
+import AddAndEditManga from "./Reader/pages/AddManga";
 import Read from "./Reader/pages/Read";
 import AddChapter from "./Reader/pages/AddChapter";
 import axios from "axios";
 import ChapterReader from "./Reader/pages/ChapterReader";
+import EditManga from "./Reader/pages/EditManga";
 
 axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.withCredentials = true;
@@ -110,7 +111,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "edit",
-                element: <h1>Edit Manga</h1>,
+                element: <EditManga/>,
               },
               {
                 path: ":chapterId",

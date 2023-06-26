@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import SkeletonPost from "../../shared/Loading/Skeleton/SkeletonPost";
 import Button from "../../shared/components/FormElements/Button/Button";
@@ -13,7 +13,10 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/Error/ErrorModal";
 import { AuthContext } from "../../shared/context/auth-context";
 
+import "./Read.css";
+
 const Read = () => {
+  const navigate = useNavigate();
   const auth = useContext(AuthContext);
   const readId = useParams().readId;
   const [manga, setManga] = useState({});
@@ -48,6 +51,21 @@ const Read = () => {
     };
     fetchMangas();
   }, [sendRequest, readId]);
+
+  const deleteMangaHandler = async () => {
+    try {
+      await sendRequest(
+        `http://localhost:8080/manga/${readId}`,
+        "DELETE",
+        null,
+        {
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+      navigate("/read");
+    } catch (err) {}
+  };
+
   return (
     <>
       {error && <ErrorModal error={error} onClear={clearError} />}
@@ -68,13 +86,18 @@ const Read = () => {
             <h2>Chapters</h2>
             {manga.chapters && manga.chapters.length > 0 ? (
               <div>
-              {manga.chapters.map((chapter) => (
-                <div className="chapters-container__item">
-                  <Link to={`${chapter.id}`}>
-                    chapter : {chapter.chapterNumber}
-                  </Link>
-                </div>
-              ))}
+                {manga.chapters
+                  .sort((chapter) => chapter.chapterNumber)
+                  .map((chapter) => (
+                    <div
+                      className="chapters-container__item"
+                      key={chapter.chapterNumber}
+                    >
+                      <Link to={`${chapter.id}`}>
+                        chapter : {chapter.chapterNumber}
+                      </Link>
+                    </div>
+                  ))}
                 <Button to={`/read/${readId}/addChapter`}>Add Chapter</Button>
               </div>
             ) : (
@@ -113,6 +136,17 @@ const Read = () => {
               </div>
             </div>
           </div>
+          {auth.token && (
+            <div>
+              <Button danger size="wide" to={`/read/${readId}/edit`}>
+                Edit manga
+                <AiFillStar />
+              </Button>
+              <Button danger size="wide" onClick={deleteMangaHandler}>
+                DELETE
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </>
