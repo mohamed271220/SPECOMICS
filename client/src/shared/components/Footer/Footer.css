@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   bottom: 0;
+
 }
 
 .footer__socials {
@@ -64,4 +65,19 @@
     width: 46px;
     height: 46px;
   }
+}
+
+.contact-form{
+  background-color: rgb(29, 29, 29);
+  color: white;
+  padding: 3rem 3rem 1rem 3rem ;
+}
+.contact-form button{
+  background-color: rgb(28, 28, 28);
+  color: white;
+  border: 2px solid white;
+}
+.contact-form button:hover , .contact-form button:active {
+  background: #ff0000;
+  border: 2px solid white;
 }

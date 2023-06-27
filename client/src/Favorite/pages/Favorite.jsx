@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useParams } from "react-router-dom";
@@ -15,12 +15,12 @@ const Favorite = () => {
   const [favLoadedManga, setLoadedFavManga] = React.useState([]);
   const [favLoadedReads, setLoadedFavReads] = React.useState([]);
 
-  const fetchedFavorites = () => {
+  const fetchedFavorites =  () => {
     
     favManga.map(async (manga) => {
       const response = await fetch(`https://api.jikan.moe/v4/manga/${manga}`);
       const data = await response.json();
-      setLoadedFavManga((prevState) => [...prevState, data]);
+      setLoadedFavManga((prevState) => [...prevState, data.data]);
     });
   };
 

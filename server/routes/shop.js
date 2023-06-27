@@ -11,10 +11,32 @@ const path = require("path");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const fileUpload = require("../middleware/file-upload");
+const Msg = require("../models/msg");
 
 const router = express.Router();
 
 router.get("/", shopControllers.getMangas);
+
+router.post("/msg/contactForm", isAuth, async (req, res, next) => {
+  const email = req.body.email;
+  const contactNumber = req.body.contactNumber;
+  const message = req.body.message;
+  const createdMsg = new Msg({
+    email,
+    contactNumber,
+    message,
+    createdBy: req.userId,
+  });
+
+  try {
+    await createdMsg.save();
+    res.status(201).json({ message: "Message sent" });
+  } catch (err) {
+    const error = new Error("Creating message failed " + err);
+    error.statusCode = 500;
+    return next(error);
+  }
+});
 
 router.post(
   "/newManga",
