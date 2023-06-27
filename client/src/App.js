@@ -20,6 +20,7 @@ import AddChapter from "./Reader/pages/AddChapter";
 import axios from "axios";
 import ChapterReader from "./Reader/pages/ChapterReader";
 import EditManga from "./Reader/pages/EditManga";
+import Favorite from "./Favorite/pages/Favorite";
 
 axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.withCredentials = true;
@@ -86,7 +87,10 @@ const router = createBrowserRouter([
         path: "manga/:mangaId",
         element: <MangaDetails />,
       },
-
+      {
+        path: "favorites/:userId",
+        element: <Favorite />,
+      },
       {
         path: "read",
         children: [
@@ -111,7 +115,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "edit",
-                element: <EditManga/>,
+                element: <EditManga />,
               },
               {
                 path: ":chapterId",

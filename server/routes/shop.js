@@ -35,13 +35,13 @@ router.put(
 router.delete("/:mangaId", isAuth, shopControllers.deleteManga);
 
 // TODO: favorites routes
-router.get("/:userId/favorites", isAuth, shopControllers.getFavoritesByUserId);
+router.get("/:userId/favs", isAuth, shopControllers.getFavoritesByUserId);
 // add too favorites
-router.post("/:userId/fav", isAuth, shopControllers.addToFavReads);
+router.post("/:userId/fav/:readId", isAuth, shopControllers.addToFavReads);
 
-router.post("/:userId/fav/:jikanId", isAuth, shopControllers.addToFavManga);
+router.post("/:userId/fav/mal/:jikanId", isAuth, shopControllers.addToFavManga);
 
-router.delete("/:userId/fav", isAuth, shopControllers.removeFromFav);
+router.delete("/:userId/fav/:someId", isAuth, shopControllers.removeFromFav);
 
 //TODO:chapter routes
 // get a single chapter

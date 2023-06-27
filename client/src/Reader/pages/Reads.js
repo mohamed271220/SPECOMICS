@@ -14,7 +14,7 @@ import { AuthContext } from "../../shared/context/auth-context";
 const Reads = () => {
  const auth = useContext(AuthContext)
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
-  const [mangas, setMangas] = useState([]);
+  const [mangas, setMangas] = useState();
 
   useEffect(() => {
     const fetchMangas = async () => {
@@ -29,6 +29,17 @@ const Reads = () => {
     };
     fetchMangas();
   }, [sendRequest]);
+
+  if(!mangas || mangas.length === 0 ) {
+    return  <Card>
+      <h1>NOTHING AVAILABLE FOR NOW</h1>
+      {auth.isLoggedIn && (
+        <Button danger size={"wide"} to="/read/addManga">
+          Add
+        </Button>
+      )}
+    </Card>
+  }
 
   return (
     <div>

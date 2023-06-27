@@ -214,7 +214,6 @@ exports.deleteManga = async (req, res, next) => {
 //TODO: get favorite reads (( gets the ids of favReads array and favManga  ))
 exports.getFavoritesByUserId = async (req, res, next) => {
   const userId = req.params.userId;
-
   let user;
   let favReads;
   let favManga;
@@ -243,6 +242,7 @@ exports.getFavoritesByUserId = async (req, res, next) => {
 // TODO: ADD A MANGA TO USER'S FAV Reads ARRAY (( saves manga id from SPECOMICS API ))
 exports.addToFavReads = async (req, res, next) => {
   const userId = req.params.userId;
+  const readId = req.params.readId;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect");
@@ -263,8 +263,7 @@ exports.addToFavReads = async (req, res, next) => {
     error.statusCode = 404;
     return next(error);
   }
-  const mangaId = req.body.mangaId;
-  user.favReads.push(mangaId);
+  user.favReads.push(readId);
   try {
     await user.save();
   } catch (err) {
@@ -279,6 +278,8 @@ exports.addToFavReads = async (req, res, next) => {
 // TODO: ADD A MANGA TO USER'S FAV Manga ARRAY (( saves mal_id from jikan API))
 exports.addToFavManga = async (req, res, next) => {
   const userId = req.params.userId;
+  const jikanId = req.params.jikanId; 
+  console.log(userId + " " + jikanId);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect");
@@ -299,8 +300,8 @@ exports.addToFavManga = async (req, res, next) => {
     error.statusCode = 404;
     return next(error);
   }
-  const mangaId = req.body.mangaId;
-  user.favManga.push(mangaId);
+
+  user.favManga.push(jikanId);
   try {
     await user.save();
   } catch (err) {

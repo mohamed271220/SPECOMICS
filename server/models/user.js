@@ -29,7 +29,7 @@ const userSchema = new Schema(
     ],
     favManga: [
       {
-        type: mongoose.Types.ObjectId,
+        type: String,
       },
     ],
     mangas: [

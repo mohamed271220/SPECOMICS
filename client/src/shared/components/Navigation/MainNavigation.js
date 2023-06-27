@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import MainHeader from "./MainHeader";
 import { Link, Outlet } from "react-router-dom";
 import Logo from "../UI/Logo/Logo";
+
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
 import Backdrop from "../UI/Backdrop/Backdrop";

@@ -37,6 +37,11 @@ const NavLinks = (props) => {
         <li>
           <NavLink to="/read">Read</NavLink>
         </li>
+        {auth.isLoggedIn && (
+          <li>
+            <NavLink to={`/favorites/${auth.userId}`}>Favorites</NavLink>
+          </li>
+        )}
       </ul>
     </>
   );

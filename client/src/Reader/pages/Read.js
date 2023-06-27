@@ -30,9 +30,7 @@ const Read = () => {
         const data = await sendRequest("http://localhost:8080/manga/");
         // mangas: mangas,
         // totalItems: totalItems,
-        setMangas(data.mangas);
-        console.log(data.mangas);
-        console.log(data.totalItems);
+
       } catch (err) {}
     };
     fetchMangas();
@@ -51,6 +49,19 @@ const Read = () => {
     };
     fetchMangas();
   }, [sendRequest, readId]);
+
+  const AddToFavHandler = async () => {
+    try {
+      sendRequest(
+        `http://localhost:8080/manga/${auth.userId}/fav/${readId}`,
+        "POST",
+        null,
+        {
+          Authorization: `Bearer ${auth.token}`,
+        }
+      );
+    } catch (err) {}
+  };
 
   const deleteMangaHandler = async () => {
     try {
@@ -78,7 +89,12 @@ const Read = () => {
               alt={manga.title}
               src={`http://localhost:8080/${manga.image}`}
             />
-            <h2>{manga.title}</h2>
+            <div>
+              <h2>{manga.title}</h2>
+              <Button size="wide" danger onClick={AddToFavHandler}>
+                Add to Favorites <AiFillStar />
+              </Button>
+            </div>
 
             <p>{manga.description}</p>
           </div>
@@ -98,13 +114,15 @@ const Read = () => {
                       </Link>
                     </div>
                   ))}
-                <Button to={`/read/${readId}/addChapter`}>Add Chapter</Button>
+                <Button danger to={`/read/${readId}/addChapter`}>
+                  Add Chapter
+                </Button>
               </div>
             ) : (
               <Card>
                 <h2> No chapters yet</h2>
                 {auth.token && (
-                  <Button to={`/read/${readId}/addChapter`}>Add Chapter</Button>
+                  <Button danger to={`/read/${readId}/addChapter`}>Add Chapter</Button>
                 )}
               </Card>
             )}
@@ -140,7 +158,7 @@ const Read = () => {
             <div>
               <Button danger size="wide" to={`/read/${readId}/edit`}>
                 Edit manga
-                <AiFillStar />
+                
               </Button>
               <Button danger size="wide" onClick={deleteMangaHandler}>
                 DELETE

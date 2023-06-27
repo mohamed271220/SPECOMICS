@@ -1,10 +1,15 @@
 import SkeletonPost from "../../shared/Loading/Skeleton/SkeletonPost";
+import ErrorModal from "../../shared/components/Error/ErrorModal";
 import { useGetNewsQuery } from "../../shared/store/jikanSlice";
 import NewsCard from "../components/News-card";
 import "./News.css";
 
 const News = () => {
   const { data, error, isLoading } = useGetNewsQuery("13");
+
+  if (error) {
+    <ErrorModal error={error} />;
+  }
 
   return (
     <div className="news-container">
@@ -17,7 +22,6 @@ const News = () => {
       </div>
       <img className="news-hero" src="" alt="" />
       <hr className="news-hr" />
-      <div>Pagination control</div>
       <div className="news-cards">
         {isLoading && <SkeletonPost />}
         {!isLoading &&

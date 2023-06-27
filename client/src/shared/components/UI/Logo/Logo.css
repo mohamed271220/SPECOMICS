@@ -4,13 +4,16 @@
   font-size: 2.1rem;
   color: rgb(255, 0, 0);
   text-align: center;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
+  flex-direction: column;
 }
 .white {
   color: white;
 }
 .gray {
-  color: rgb(90, 92, 92);
+  color: #5b5d5d;
 }
 .bold {
   font-weight: 800;

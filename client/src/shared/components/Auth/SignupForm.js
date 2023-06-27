@@ -19,7 +19,7 @@ const SignupForm = (props) => {
   // const [isLoading, setIsLoading] = React.useState(false);
   // const [isError, setIsError] = React.useState(undefined);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
+  // console.log(error);
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {

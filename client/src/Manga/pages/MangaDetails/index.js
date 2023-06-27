@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   useGetCharactersQuery,
@@ -9,10 +9,15 @@ import Button from "../../../shared/components/FormElements/Button/Button";
 import { AiFillStar } from "react-icons/ai";
 import { useGetRecommendationsQuery } from "../../../shared/store/jikanSlice";
 import SingleManga from "../../../shared/components/SingleManga/SingleManga";
+import { useHttpClient } from "../../../shared/hooks/http-hook";
+import { AuthContext } from "../../../shared/context/auth-context";
 import { CiShare1 } from "react-icons/ci";
+import LoadingSpinner from "../../../shared/Loading/LoadingSpinner/LoadingSpinner";
+import ErrorModal from "../../../shared/components/Error/ErrorModal";
 import "./index.css";
 
 const MangaDetails = () => {
+  const auth = useContext(AuthContext);
   const {
     data: recommendationsData,
     isLoading: recommendationsLoading,
@@ -26,9 +31,34 @@ const MangaDetails = () => {
     error: charactersError,
   } = useGetCharactersQuery(mangaId);
   //   console.log(data.data);
+
+  const {
+    sendRequest,
+    isLoading: favLoading,
+    error: favError,
+    clearError,
+  } = useHttpClient();
+
+  const AddToFavHandler = async () => {
+    try {
+      sendRequest(
+        `http://localhost:8080/manga/${auth.userId}/fav/mal/${mangaId}`,
+        "POST",
+        null,
+        {
+          Authorization: `Bearer ${auth.token}`,
+        }
+      );
+    } catch (err) {}
+  };
+
   return (
     <>
-      {isLoading ? (
+      <ErrorModal
+        error={favError || recommendationsError || error}
+        onClear={clearError}
+      />
+      {isLoading || recommendationsLoading || favLoading ? (
         <SkeletonPost />
       ) : error || data.data === undefined ? (
         <div>Error</div>
@@ -39,9 +69,22 @@ const MangaDetails = () => {
               alt={data.data.title}
               src={data.data.images.webp.large_image_url}
             />
-            <h2>
-              {data.data.title} {data.data.title_japanese}
-            </h2>
+            <div>
+              {favLoading && <LoadingSpinner asOverlay />}
+              <h2>
+                {data.data.title} {data.data.title_japanese}
+              </h2>
+              {auth.token && (
+                <Button
+                  target="_blank"
+                  size="wide"
+                  danger
+                  onClick={AddToFavHandler}
+                >
+                  Add to Favorite
+                </Button>
+              )}
+            </div>
             <p>
               {data.data.score} <AiFillStar color="#ffdd1e" /> Rated By :{" "}
               {data.data.scored_by}
@@ -59,11 +102,10 @@ const MangaDetails = () => {
                   <p>{genre.name}</p>
                 </Link>
               ))}
-
             </div>
-              <Link className="more-tags" to={'/discover/genres'}>
-                Explore more genres <CiShare1 />
-              </Link>
+            <Link className="more-tags" to={"/discover/genres"}>
+              Explore more genres <CiShare1 />
+            </Link>
             <div className="demographics">
               <h3>Demographics</h3>
               {data.data.demographics.map((demographic) => (

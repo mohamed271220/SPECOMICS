@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
+import Modal from '../UI/Modal/Modal';
+import Button from '../FormElements/Button/Button';
 
-import Modal from "../UI/Modal/Modal";
-import Button from "../FormElements/Button/Button";
 
-const ErrorModal = (props) => {
+const ErrorModal = props => {
   return (
     <Modal
       onCancel={props.onClear}
@@ -11,11 +11,7 @@ const ErrorModal = (props) => {
       show={!!props.error}
       footer={<Button onClick={props.onClear}>Okay</Button>}
     >
-      <p>
-        {props.error === "Internal Server Error"
-          ? "Please login first"
-          : props.error}
-      </p>
+      <p>{props.error}</p>
     </Modal>
   );
 };

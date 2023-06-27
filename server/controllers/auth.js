@@ -24,7 +24,6 @@ exports.signup = async (req, res, next) => {
     user = await User.findOne({ email: email });
   } catch (err) {
     const error = new Error("Signing up failed");
-
     error.statusCode = 500;
     return next(error);
   }
@@ -45,9 +44,9 @@ exports.signup = async (req, res, next) => {
     status: status,
   });
   try {
-    user.save();
+    await createdUser.save();
   } catch (err) {
-    const error = new Error("Signing up failed");
+    const error = new Error("Signing up failed"+err);
     error.statusCode = 500;
     return next(error);
   }
