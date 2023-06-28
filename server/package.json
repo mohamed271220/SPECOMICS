@@ -4,7 +4,7 @@
   "description": "serve up some comics and manga news with hopefully full chapters and issues ",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mohamed magdy (Specter)",
