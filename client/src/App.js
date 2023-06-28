@@ -1,14 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./Manga/pages/Home/HomePage";
 import News from "./News/pages/News";
 import Popular from "./Manga/pages/Categories/Popular";
 import SingleNews from "./News/pages/SingleNews";
 import TopCategory from "./Manga/pages/Categories/TopCategory";
-import MainLayout from "./shared/components/MainLayout";
 import MangaDetails from "./Manga/pages/MangaDetails";
-import { AuthContext } from "./shared/context/auth-context";
-
 import Recomended from "./Manga/pages/Categories/Recomended";
 import Genre from "./Manga/pages/Genre/Genre";
 import Genres from "./Manga/pages/Genre/Genres";
@@ -17,12 +14,37 @@ import Reads from "./Reader/pages/Reads";
 import AddAndEditManga from "./Reader/pages/AddManga";
 import Read from "./Reader/pages/Read";
 import AddChapter from "./Reader/pages/AddChapter";
-import axios from "axios";
 import ChapterReader from "./Reader/pages/ChapterReader";
 import EditManga from "./Reader/pages/EditManga";
-import Favorite from "./Favorite/pages/Favorite";
+import MainLayout from "./shared/components/MainLayout";
+import axios from "axios";
+import { AuthContext } from "./shared/context/auth-context";
 
-axios.defaults.baseURL = "http://localhost:8080";
+//lazy loading
+
+// const HomePage = React.lazy(() => import("./Manga/pages/Home/HomePage"));
+// const News = React.lazy(() => import("./News/pages/News"));
+// const Popular = React.lazy(() => import("./Manga/pages/Categories/Popular"));
+// const SingleNews = React.lazy(() => import("./News/pages/SingleNews"));
+// const TopCategory = React.lazy(() =>
+//   import("./Manga/pages/Categories/TopCategory")
+// );
+
+// const MangaDetails = React.lazy(() => import("./Manga/pages/MangaDetails"));
+// const Recomended = React.lazy(() =>
+//   import("./Manga/pages/Categories/Recomended")
+// );
+// const Genre = React.lazy(() => import("./Manga/pages/Genre/Genre"));
+// const Genres = React.lazy(() => import("./Manga/pages/Genre/Genres"));
+// const Discover = React.lazy(() => import("./Manga/pages/Discover/Discover"));
+// const Reads = React.lazy(() => import("./Reader/pages/Reads"));
+// const AddAndEditManga = React.lazy(() => import("./Reader/pages/AddManga"));
+// const Read = React.lazy(() => import("./Reader/pages/Read"));
+// const AddChapter = React.lazy(() => import("./Reader/pages/AddChapter"));
+// const ChapterReader = React.lazy(() => import("./Reader/pages/ChapterReader"));
+// const EditManga = React.lazy(() => import("./Reader/pages/EditManga"));
+
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
 axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
@@ -87,10 +109,7 @@ const router = createBrowserRouter([
         path: "manga/:mangaId",
         element: <MangaDetails />,
       },
-      {
-        path: "favorites/:userId",
-        element: <Favorite />,
-      },
+
       {
         path: "read",
         children: [
@@ -120,12 +139,6 @@ const router = createBrowserRouter([
               {
                 path: ":chapterId",
                 element: <ChapterReader />,
-                children: [
-                  {
-                    path: "edit",
-                    element: <h1>Edit chapter</h1>,
-                  },
-                ],
               },
             ],
           },

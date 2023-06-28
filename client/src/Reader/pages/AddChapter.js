@@ -121,7 +121,12 @@ const AddChapter = () => {
               {addedPhotos.length > 0 &&
                 addedPhotos.map((link) => (
                   <div className="form-control__uploader" key={link}>
-                    <img src={"http://localhost:8080/uploads/" + link} alt="" />
+                    <img
+                      src={
+                        `${process.env.REACT_APP_BACKEND_URL}/uploads/` + link
+                      }
+                      alt=""
+                    />
                     <button
                       onClick={(ev) => removePhoto(ev, link)}
                       className="btn-1 "
@@ -178,8 +183,7 @@ const AddChapter = () => {
                     </button>
                   </div>
                 ))}
-              <label
-                className="form-control__label" >
+              <label className="form-control__label">
                 <input
                   type="file"
                   multiple
@@ -194,7 +198,6 @@ const AddChapter = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-               
                 >
                   <path
                     strokeLinecap="round"
@@ -207,7 +210,9 @@ const AddChapter = () => {
             </div>
 
             <div>
-              <Button danger size={'wide'} className="form-control__btn">Save</Button>
+              <Button danger size={"wide"} className="form-control__btn">
+                Save
+              </Button>
             </div>
           </form>
         </div>

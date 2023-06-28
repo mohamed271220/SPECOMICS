@@ -54,7 +54,7 @@ const EditMangaForm = () => {
     const fetchManga = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:8080/manga/${readId}`
+          `${process.env.REACT_APP_BACKEND_URL}/manga/${readId}`
         );
         console.log(responseData);
         setLoadedManga(responseData.manga);
@@ -94,14 +94,14 @@ const EditMangaForm = () => {
       formData.append("description", formState.inputs.description.value);
       formData.append("author", formState.inputs.author.value);
       await sendRequest(
-        `http://localhost:8080/manga/${readId}/edit`,
+        `${process.env.REACT_APP_BACKEND_URL}/manga/${readId}/edit`,
         "PUT",
         formData,
         {
           Authorization: "Bearer " + auth.token,
         }
       );
-      navigate("/");
+      navigate("/read");
     } catch (err) {}
   };
 

@@ -46,7 +46,7 @@ exports.signup = async (req, res, next) => {
   try {
     await createdUser.save();
   } catch (err) {
-    const error = new Error("Signing up failed"+err);
+    const error = new Error("Signing up failed" + err);
     error.statusCode = 500;
     return next(error);
   }
@@ -56,7 +56,7 @@ exports.signup = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: createdUser._id.toString(), email: createdUser.email },
-      "TheSecretOfTurningAZeroIntoAnOneIs",
+      process.env.JWT_KEY,
       {
         expiresIn: "4h",
       }
@@ -101,7 +101,7 @@ exports.login = (req, res, next) => {
           email: loadedUser.email,
           userId: loadedUser._id.toString(),
         },
-        "TheSecretOfTurningAZeroIntoAnOneIs",
+        process.env.JWT_KEY,
         { expiresIn: "4h" }
       );
       res.status(200).json({ token: token, userId: loadedUser._id.toString() });

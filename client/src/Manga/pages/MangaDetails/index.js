@@ -39,18 +39,18 @@ const MangaDetails = () => {
     clearError,
   } = useHttpClient();
 
-  const AddToFavHandler = async () => {
-    try {
-      sendRequest(
-        `http://localhost:8080/manga/${auth.userId}/fav/mal/${mangaId}`,
-        "POST",
-        null,
-        {
-          Authorization: `Bearer ${auth.token}`,
-        }
-      );
-    } catch (err) {}
-  };
+  // const AddToFavHandler = async () => {
+  //   try {
+  //     sendRequest(
+  //       `http://localhost:8080/manga/${auth.userId}/fav/mal/${mangaId}`,
+  //       "POST",
+  //       null,
+  //       {
+  //         Authorization: `Bearer ${auth.token}`,
+  //       }
+  //     );
+  //   } catch (err) {}
+  // };
 
   return (
     <>
@@ -74,7 +74,7 @@ const MangaDetails = () => {
               <h2>
                 {data.data.title} {data.data.title_japanese}
               </h2>
-              {auth.token && (
+              {/* {auth.token && (
                 <Button
                   target="_blank"
                   size="wide"
@@ -83,7 +83,7 @@ const MangaDetails = () => {
                 >
                   Add to Favorite
                 </Button>
-              )}
+              )} */}
             </div>
             <p>
               {data.data.score} <AiFillStar color="#ffdd1e" /> Rated By :{" "}

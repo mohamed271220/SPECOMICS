@@ -37,7 +37,7 @@ const Footer = () => {
 
     try {
       await sendRequest(
-        `http://localhost:8080/manga/msg/contactForm`,
+        `${process.env.REACT_APP_BACKEND_URL}/manga/msg/contactForm`,
         "POST",
         JSON.stringify({
           email: formState.inputs.email.value,
@@ -111,7 +111,7 @@ const Footer = () => {
             errorText="Please enter a valid contact number ."
             onInput={inputHandler}
           />
-          <Button size="wide" type="submit" disabled={!formState.isValid}>
+          <Button size="small" className='center' type="submit" disabled={!formState.isValid}>
             Send Message
           </Button>
         </form>

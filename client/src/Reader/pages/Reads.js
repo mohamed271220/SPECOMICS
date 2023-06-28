@@ -12,14 +12,16 @@ import Button from "../../shared/components/FormElements/Button/Button";
 import { AuthContext } from "../../shared/context/auth-context";
 
 const Reads = () => {
- const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
   const [mangas, setMangas] = useState();
 
   useEffect(() => {
     const fetchMangas = async () => {
       try {
-        const data = await sendRequest("http://localhost:8080/manga/");
+        const data = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/manga/`
+        );
         // mangas: mangas,
         // totalItems: totalItems,
         setMangas(data.mangas);
@@ -30,15 +32,17 @@ const Reads = () => {
     fetchMangas();
   }, [sendRequest]);
 
-  if(!mangas || mangas.length === 0 ) {
-    return  <Card>
-      <h1>NOTHING AVAILABLE FOR NOW</h1>
-      {auth.isLoggedIn && (
-        <Button danger size={"wide"} to="/read/addManga">
-          Add
-        </Button>
-      )}
-    </Card>
+  if (!mangas || mangas.length === 0) {
+    return (
+      <Card>
+        <h1>NOTHING AVAILABLE FOR NOW</h1>
+        {auth.isLoggedIn && (
+          <Button danger size={"wide"} to="/read/addManga">
+            Add
+          </Button>
+        )}
+      </Card>
+    );
   }
 
   return (

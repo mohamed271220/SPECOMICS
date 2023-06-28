@@ -38,7 +38,7 @@ const LoginForm = (props) => {
 
     try {
       const response = await sendRequest(
-        "http://localhost:8080/auth/login",
+        `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
         "POST",
         JSON.stringify({
           email: formState.inputs.email.value,
@@ -58,7 +58,7 @@ const LoginForm = (props) => {
     <>
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner asOverlay />}
-      <form className="form" onSubmit={loginSubmitHandler}>
+      <div className="form" onSubmit={loginSubmitHandler}>
         <Input
           id="email"
           type="email"
@@ -81,15 +81,15 @@ const LoginForm = (props) => {
         />
         <Button
           type="submit"
-          size="wide"
-          className="button"
+          size="small"
+          className="center button"
           danger
           disabled={!formState.isValid}
           onClick={loginSubmitHandler}
         >
           Login
         </Button>
-      </form>
+      </div>
     </>
   );
 };

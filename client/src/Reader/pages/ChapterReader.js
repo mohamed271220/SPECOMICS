@@ -45,7 +45,10 @@ const ChapterReader = () => {
       >
         {chapter.map((page) => {
           return (
-            <img src={`http://localhost:8080/uploads/${page}`} alt="page" />
+            <img
+              src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${page}`}
+              alt="page"
+            />
           );
         })}
       </Carousel>

@@ -27,10 +27,11 @@ const Read = () => {
   useEffect(() => {
     const fetchMangas = async () => {
       try {
-        const data = await sendRequest("http://localhost:8080/manga/");
+        const data = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/manga/`
+        );
         // mangas: mangas,
         // totalItems: totalItems,
-
       } catch (err) {}
     };
     fetchMangas();
@@ -39,7 +40,9 @@ const Read = () => {
   useEffect(() => {
     const fetchMangas = async () => {
       try {
-        const data = await sendRequest(`http://localhost:8080/manga/${readId}`);
+        const data = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/manga/${readId}`
+        );
         // mangas: mangas,
         // totalItems: totalItems,
         setManga(data.manga);
@@ -50,23 +53,23 @@ const Read = () => {
     fetchMangas();
   }, [sendRequest, readId]);
 
-  const AddToFavHandler = async () => {
-    try {
-      sendRequest(
-        `http://localhost:8080/manga/${auth.userId}/fav/${readId}`,
-        "POST",
-        null,
-        {
-          Authorization: `Bearer ${auth.token}`,
-        }
-      );
-    } catch (err) {}
-  };
+  // const AddToFavHandler = async () => {
+  //   try {
+  //     sendRequest(
+  //       `http://localhost:8080/manga/${auth.userId}/fav/${readId}`,
+  //       "POST",
+  //       null,
+  //       {
+  //         Authorization: `Bearer ${auth.token}`,
+  //       }
+  //     );
+  //   } catch (err) {}
+  // };
 
   const deleteMangaHandler = async () => {
     try {
       await sendRequest(
-        `http://localhost:8080/manga/${readId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/manga/${readId}`,
         "DELETE",
         null,
         {
@@ -87,13 +90,13 @@ const Read = () => {
           <div className="manga-details__upper">
             <img
               alt={manga.title}
-              src={`http://localhost:8080/${manga.image}`}
+              src={`${process.env.REACT_APP_BACKEND_URL}/${manga.image}`}
             />
             <div>
               <h2>{manga.title}</h2>
-              <Button size="wide" danger onClick={AddToFavHandler}>
+              {/* <Button size="wide" danger onClick={AddToFavHandler}>
                 Add to Favorites <AiFillStar />
-              </Button>
+              </Button> */}
             </div>
 
             <p>{manga.description}</p>
@@ -122,7 +125,9 @@ const Read = () => {
               <Card>
                 <h2> No chapters yet</h2>
                 {auth.token && (
-                  <Button danger to={`/read/${readId}/addChapter`}>Add Chapter</Button>
+                  <Button danger to={`/read/${readId}/addChapter`}>
+                    Add Chapter
+                  </Button>
                 )}
               </Card>
             )}
@@ -158,7 +163,6 @@ const Read = () => {
             <div>
               <Button danger size="wide" to={`/read/${readId}/edit`}>
                 Edit manga
-                
               </Button>
               <Button danger size="wide" onClick={deleteMangaHandler}>
                 DELETE

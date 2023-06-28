@@ -54,14 +54,14 @@ const AddMangaForm = () => {
       formData.append("description", formState.inputs.description.value);
       formData.append("author", formState.inputs.author.value);
       await sendRequest(
-        "http://localhost:8080/manga/newManga",
+        `${process.env.REACT_APP_BACKEND_URL}/manga/newManga`,
         "POST",
         formData,
         {
           Authorization: "Bearer " + auth.token,
         }
       );
-      navigate("/");
+      navigate("/read");
     } catch (err) {}
   };
 
@@ -104,7 +104,12 @@ const AddMangaForm = () => {
           isPfp
         />
 
-        <Button danger size={'wide'} type="submit" disabled={!formState.isValid}>
+        <Button
+          danger
+          size={"wide"}
+          type="submit"
+          disabled={!formState.isValid}
+        >
           ADD MANGA
         </Button>
       </form>

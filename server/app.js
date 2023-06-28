@@ -10,6 +10,7 @@ const path = require("path");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 var cors = require("cors");
+require("dotenv").config();
 const fileUpload = require("./middleware/file-upload");
 const filesUpload = multer({ dest: "uploads/images" });
 const app = express();
@@ -20,7 +21,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_ORIGIN,
   })
 );
 
@@ -65,10 +66,10 @@ app.use((error, req, res, next) => {
 // START SERVER & BACKEND CONNECTION
 mongoose
   .connect(
-    "mongodb+srv://Specter:9YXRYF49i1R92ztH@cluster0.gecerxr.mongodb.net/specomics?retryWrites=true&w=majority"
+    process.env.MONGODB_URI 
   )
   .then((result) => {
-    app.listen(8080, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is running on port 8080");
     });
   })

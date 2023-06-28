@@ -8,7 +8,7 @@ import {
   useGetRecommendationsQuery,
 } from "../../../shared/store/jikanSlice";
 import SkeletonPost from "../../../shared/Loading/Skeleton/SkeletonPost";
-import LoadingSpinner from '../../../shared/Loading/LoadingSpinner/LoadingSpinner'
+import LoadingSpinner from "../../../shared/Loading/LoadingSpinner/LoadingSpinner";
 const HomePage = () => {
   const {
     data: topData,
@@ -35,8 +35,13 @@ const HomePage = () => {
     <div className="Hero">
       {newsLoading ? (
         <LoadingSpinner />
+      ) : newsError || newsData.data === undefined ? (
+        <div>error</div>
       ) : (
-        <NewsCarousel key={newsData.data.mal_id} data={newsData.data.slice(0, 3)} />
+        <NewsCarousel
+          key={newsData.data.mal_id}
+          data={newsData.data.slice(0, 3)}
+        />
       )}
 
       {/* //================================================= */}

@@ -58,6 +58,7 @@ exports.addManga = async (req, res, next) => {
     throw error;
   }
 
+
   const title = req.body.title;
 
   const description = req.body.description;
@@ -278,7 +279,7 @@ exports.addToFavReads = async (req, res, next) => {
 // TODO: ADD A MANGA TO USER'S FAV Manga ARRAY (( saves mal_id from jikan API))
 exports.addToFavManga = async (req, res, next) => {
   const userId = req.params.userId;
-  const jikanId = req.params.jikanId; 
+  const jikanId = req.params.jikanId;
   console.log(userId + " " + jikanId);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

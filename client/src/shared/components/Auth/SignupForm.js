@@ -43,7 +43,7 @@ const SignupForm = (props) => {
 
     try {
       const data = await sendRequest(
-        "http://localhost:8080/auth/signup",
+        `${process.env.REACT_APP_BACKEND_URL}/auth/signup`,
         "POST",
 
         JSON.stringify({
@@ -99,8 +99,9 @@ const SignupForm = (props) => {
         <Button
           disabled={!formState.isValid}
           type="submit"
-          size="wide"
-          className="button"
+          size="small"
+          className="center button"
+          
           danger
           onClick={signupSubmitHandler}
         >
